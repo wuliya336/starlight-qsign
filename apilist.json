@@ -1,0 +1,56 @@
+{
+    "wuliya": [
+        {
+            "8978": "https://qsign.wuliya.icu/8978/sign?key=wuliya",
+            "8988": "https://qsign.wuliya.icu/8988/sign?key=wuliya",
+            "8996": "https://qsign.wuliya.icu/8996/sign?key=wuliya",
+            "memo": "主站:https://qsign.wuliya.icu"
+        }
+    ], 
+    "寒暄": [
+        {
+            "X1": "http://1.QSign.icu?key=XxxX",
+            "X2": "http://2.QSign.icu?key=XxxX",
+            "X3": "http://3.QSign.icu?key=XxxX",
+            "X4": "http://4.QSign.icu?key=XxxX",
+            "X5": "http://5.QSign.icu?key=XxxX"
+        }
+    ],
+    "小兔": [
+        {
+            "8978": "http://qsign.angryrabbit.cn/8978/sign?key=114514",
+            "8983": "http://qsign.angryrabbit.cn/8983/sign?key=114514",
+            "8985": "http://qsign.angryrabbit.cn/8985/sign?key=114514"
+        }
+    ],
+    "皮皮姬": [
+        {
+            "8978(1)": "http://qsign.pippi.top/8978/sign?key=pippi",
+            "8978(2)": "https://qsign.yuiqsign.icu/8978/sign?key=pippi"
+        }
+    ],
+    "时雨": [
+        {
+            "9017(1)": "http://gz.console.microgg.cn:2536",
+            "9017(2)": "http://110.40.249.125:2536"
+        }
+    ],
+    "肝帝": [
+        {
+            "8978": "http://qsign.gandi.ltd/sign?key=114514"
+        }
+    ],
+    "饼干": [
+        {
+            "8978": "http://8.9.78.biscuilt.top/sign?key=biscuit",
+            "8985": "http://8.9.85.biscuilt.top/sign?key=biscuit",
+            "8988": "http://8.9.88.biscuilt.top/sign?key=biscuit",
+            "8990": "http://8.9.90.biscuilt.top/sign?key=biscuit",
+            "8993": "http://8.9.93.biscuilt.top/sign?key=biscuit",
+            "9000": "http://9.0.0.biscuilt.top/sign?key=biscuit",
+            "9008": "http://9.0.8.biscuilt.top/sign?key=biscuit",
+            "9015": "http://9.0.15.biscuilt.top/sign?key=biscuit",
+            "9017": "http://9.0.17.biscuilt.top/sign?key=biscuit"
+        }
+    ]
+}

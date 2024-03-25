@@ -1,9 +1,0 @@
-{
-  "name": "starlight-qsign",
-  "version": "1.8.9",
-  "author": "wuliya",
-  "type": "module",
-  "dependencies": {
-    "axios": "^1.6.7"
-  }
-}

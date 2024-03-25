@@ -1,4 +1,0 @@
-# 是否开启签名统计
-sate: false
-# 统计量访问地址
-statsUrl: http://127.0.0.1/api/stats.php

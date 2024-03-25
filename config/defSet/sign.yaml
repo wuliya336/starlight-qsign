@@ -1,8 +1,0 @@
-# 是否开启公共签名列表
-signlist: true
-
-# 公共签名列表请求限制, 0则不限制
-concurrent_limit: 0
-
-# 是否开启自动切换签名
-autosign: false

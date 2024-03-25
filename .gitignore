@@ -1,6 +1,0 @@
-# modules file
-node_modules/*
-pnpm-lock.yaml
-
-# Other files and folders
-.history
