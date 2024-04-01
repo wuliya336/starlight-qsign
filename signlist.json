@@ -1,12 +1,4 @@
 {
-    "wuliya": [
-        {
-            "8978": "https://qsign.wuliya.icu/8978/sign?key=wuliya",
-            "8988": "https://qsign.wuliya.icu/8988/sign?key=wuliya",
-            "8996": "https://qsign.wuliya.icu/8996/sign?key=wuliya",
-            "memo": "主站:https://qsign.wuliya.icu"
-        }
-    ], 
     "寒暄": [
         {
             "X1": "http://1.QSign.icu?key=XxxX",
@@ -32,7 +24,8 @@
     "时雨": [
         {
             "9017(1)": "http://gz.console.microgg.cn:2536",
-            "9017(2)": "http://110.40.249.125:2536"
+            "9017(2)": "http://110.40.249.125:2536",
+            "memo": "需要授权加入白名单，请加群:659945190然后私聊群主获取"
         }
     ],
     "肝帝": [
