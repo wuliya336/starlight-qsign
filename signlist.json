@@ -7,58 +7,5 @@
             "X4": "http://4.QSign.icu?key=XxxX",
             "X5": "http://5.QSign.icu?key=XxxX"
         }
-    ],
-    "小兔": [
-        {
-            "8978": "http://qsign.angryrabbit.cn/8978/sign?key=114514",
-            "8983": "http://qsign.angryrabbit.cn/8983/sign?key=114514",
-            "8985": "http://qsign.angryrabbit.cn/8985/sign?key=114514"
-        }
-    ],
-    "皮皮姬": [
-        {
-            "8978(1)": "http://qsign.pippi.top?key=pippi",
-            "8978(2)": "https://qsign.yuiqsign.icu?key=pippi"
-        }
-    ],
-    "柳云零奈": [
-        {
-            "8978(1)": "https://qsly-8-9-78.hf.space?key=lyln",
-            "8978(2)": "https://qsly-qslyln-8978-114514.hf.space?key=LYLN",
-            "memo": "签名反馈群947076236"
-        }
-    ],
-    "时雨": [
-        {
-            "9017(1)": "http://gz.console.microgg.cn:2536",
-            "9017(2)": "http://110.40.249.125:2536",
-            "memo": "需要授权加入白名单，请加群:659945190然后私聊群主获取"
-        }
-    ],
-    "肝帝": [
-        {
-            "8978": "http://qsign.gandi.ltd/sign?key=114514",
-            "8978(裸连)": "http://47.95.22.15/sign?key=114514"
-        }
-    ],
-    "饼干": [
-        {
-            "8978": "http://8.9.78.biscuilt.top/sign?key=biscuit",
-            "8985": "http://8.9.85.biscuilt.top/sign?key=biscuit",
-            "8988": "http://8.9.88.biscuilt.top/sign?key=biscuit",
-            "8990": "http://8.9.90.biscuilt.top/sign?key=biscuit",
-            "8993": "http://8.9.93.biscuilt.top/sign?key=biscuit"
-        }
-    ],
-    "咕咕咕": [
-        {
-            "8978": "http://47.108.180.154:8978?key=114514",
-            "8985": "http://47.108.180.154:8985?key=114514",
-            "8988": "http://47.108.180.154:8988?key=114514",
-            "8990": "http://47.108.180.154:8990?key=114514",
-            "8993": "http://47.108.180.154:8993?key=114514",
-            "9008": "http://47.108.180.154:908?key=114514",
-            "9017": "http://47.108.180.154:9017?key=114514"
-        }
     ]
 }
