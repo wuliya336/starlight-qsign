@@ -23,9 +23,7 @@
         "9x": "https://hlhs-nb.cn/signed/?key=114514"
     },
     "时雨": {
-        "9017": {
-            "备注": "需要加群659945190，私聊群主获取授权白名单",
-            "签名地址": "http://gz.console.microgg.cn:2536"
-        }
+        "9017": "http://gz.console.microgg.cn:2536",
+        "memo": "需要加群659945190，私聊群主获取授权白名单"
     }
 }
