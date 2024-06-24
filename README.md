@@ -60,6 +60,7 @@ pnpm install --filter=starlight-qsign
 `memo`为可选项，`info`用于输出备注，可放统计量，签名主站，不可放置广告<br>
 
 ## 更新计划
+- [ ] V4重构
 - [ ] 统计量定时推送
 - [x] 备注信息
 
