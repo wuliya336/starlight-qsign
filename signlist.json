@@ -1,29 +1,17 @@
 {
-    "寒暄": {
-        "X1": "http://1.QSign.icu?key=XxxX",
-        "X2": "http://2.QSign.icu?key=XxxX",
-        "X3": "http://3.QSign.icu?key=XxxX",
-        "X4": "http://4.QSign.icu?key=XxxX",
-        "X5": "http://5.QSign.icu?key=XxxX"
-    },
-    "柳云零奈": {
-        "8978(1)": "https://qsly-qslyln-8978-114514.hf.space?key=LYLN",
-        "8978(2)": "https://qsly-8-9-78.hf.space?key=LYLN"
-    },
-    "小兔": {
-        "8978": "http://qsign.angryrabbit.cn/8978/sign?key=114514"
-    },
-    "饼干": {
-        "8978": "http://8.9.78.biscuilt.top/sign?key=biscuit"
-    },
-    "咕咕咕": {
-        "8978": "http://47.108.180.154:8978?key=114514"
-    },
-    "hlhs": {
-        "9x": "https://hlhs-nb.cn/signed/?key=114514"
-    },
     "时雨": {
         "9017": "http://gz.console.microgg.cn:2536",
-        "memo": "需要加群659945190，私聊群主获取授权白名单"
+        "memo": "需要加群659945190，私聊群主申请白名单，不建议使用"
+    },
+    "hlhs": {
+        "90**": "https://hlhs-nb.cn/signed/?key=114514",
+        "memo": "推荐使用，但ICQQ版本≤0.6.10的请先在根目录执行：curl -sSL Qsign.icu/ver |bash"
+    },
+    "zhaodice": {
+        "9̶0̶5̶6̶ 9075(1)": "https://qsign.trpgbot.com",
+        "9̶0̶5̶6̶ 9075(2)": "https://qsign-v4.trpgbot.com",
+        "9̶0̶5̶6̶ 9075(3)": "https://sbtx.f3.ttvt.cc?key=miraibbs",
+        "9̶0̶5̶6̶ 9075(4)": "https://qsign.chahuyun.cn?key=miraibbs",
+        "memo": "(1)(2)签名没有KEY，稳定，但是需要挂梯子。(3)(4)的签名有KEY，不需要梯子，但是不稳定"
     }
 }
