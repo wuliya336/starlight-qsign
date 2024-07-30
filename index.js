@@ -29,5 +29,6 @@ for (let i in files) {
 logger.info(chalk.blue(`---------=.=---------`))
 logger.info(chalk.blue(`星点签名插件${Version.ver}载入成功^_^`))
 logger.info(chalk.blue(`作者-wuliya`))
+logger.info(chalk.blue(`签名收集-重装小兔`))
 logger.info(chalk.blue(`---------------------`));
 export { apps }
