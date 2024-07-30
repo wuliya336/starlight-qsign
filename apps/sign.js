@@ -28,7 +28,7 @@ export class index extends plugin {
     const urls = [
       { name: 'GitHub', url: 'https://github.com/wuliya336/starlight-qsign/raw/api/signlist.json' },
       { name: 'Gitlab', url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json' },
-      { name: 'Gitee', url: 'https://gitee.com/OvertimeBunny/starlight-qsign/raw/api/signlist.json' }  // 添加新的 Gitee 链接
+      { name: 'Gitee', url: 'https://gitee.com/OvertimeBunny/starlight-qsign/raw/api/signlist.json' }
     ];
 
     let rawData;
