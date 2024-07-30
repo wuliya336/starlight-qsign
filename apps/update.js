@@ -118,7 +118,7 @@ export class Update extends plugin {
         let line = log.length
         log = log.join('\n\n')
         if (log.length <= 0) return ''
-        let end = '更多详细信息，请前往gitee查看\nhttps://gitee.com/wuliya336/starlight-qsign/'
+        let end = '更多详细信息，请前往gitee查看\nhttps://gitlab.com/v17360963/starlight-qsign/'
         log = await common.makeForwardMsg(this.e, [log, end], `${plugin}更新日志，共${line}条`)
         return log
     }
