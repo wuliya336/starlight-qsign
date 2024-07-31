@@ -6,7 +6,7 @@ export class Stats extends plugin {
     super({
       name: '星点签名插件',
       event: 'message',
-      priority: -33699,
+      priority: Infinity,
       rule: [
         {
           reg: '/^#?(星点)?(api|签名||starlight-qsign)(信息|统计)$/i',

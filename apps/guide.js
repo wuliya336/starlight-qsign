@@ -5,7 +5,7 @@ export class guide extends plugin {
       super({
         name: '星点签名',
         event: 'message',
-        priority: -33699,
+        priority: Infinity,
         rule: [
           {
             reg:  /^(#)?(签名|api|星点签名)?(使用教程)$/i,

@@ -5,7 +5,7 @@ export class info extends plugin {
     super({
       name: '星点签名插件',
       event: 'message',
-      priority: -33699,
+      priority: Infinity,
       rule: [
         {
           reg: '^(#)?(项目地址|插件库)$',
