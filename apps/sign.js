@@ -24,7 +24,7 @@ export class index extends plugin {
 
     const concurrentLimit = Config.concurrent_limit || 0;
     const urls = [
-      { name: 'Gitee', url: 'https://gitee.com/OvertimeBunny/starlight-qsign/raw/api/signlist.json' }
+      { name: 'Gitlab', url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json' }
     ];
 
     try {
