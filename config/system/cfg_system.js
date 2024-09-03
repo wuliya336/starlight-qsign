@@ -16,7 +16,7 @@ export const cfgSchema = {
           def: 1,
           input: (n) => Math.min(1, Math.max(0, (n * 1 || 100))),
           desc: '是否远程功能，开启后将从服务器获取数据',
-          fileName: 'rmote'
+          fileName: 'sign'
         },      
         concurrent_limit: {
             title: '并发限制',
