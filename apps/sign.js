@@ -20,7 +20,7 @@ export class sign extends plugin {
   async list(e) {
     if (!Config.signlist) return false;
 
-    await e.reply('正在从云端获取公共签名API列表信息，请稍候...', true);
+    await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
     const concurrentLimit = Config.concurrent_limit || 0;
     const urls = [
@@ -51,14 +51,13 @@ export class sign extends plugin {
 
         const successfulResponse = responses.find(({ error }) => !error);
         if (!successfulResponse) {
-          await e.reply('获取公共签名API列表云端信息失败，请稍后重试');
+          await e.reply('获取公共签名API列表信息失败，请稍后重试');
           return false;
         }
 
         providers = successfulResponse.data;
 
       } catch (error) {
-        console.log('获取云端数据失败', error);
         return false;
       }
     }
