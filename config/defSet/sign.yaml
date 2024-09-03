@@ -2,3 +2,5 @@
 signlist: true
 # 使用远程
 rmote: 1
+# 并发限制
+concurrent_limit: 10

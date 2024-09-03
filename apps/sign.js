@@ -32,7 +32,7 @@ export class sign extends plugin {
     let providers;
     let responses;
 
-    if (Config.remote === 0) {
+    if (!Config.remote) {
       try {
         providers = Data.readJSON('signlist.json', '../');
       } catch (error) {
