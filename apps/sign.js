@@ -1,5 +1,5 @@
 import common from '../../../lib/common/common.js';
-import { Config, Data } from '../components/index.js';
+import { Config, Data, Plugin_Path } from '../components/index.js';
 import axios from 'axios';
 
 export class sign extends plugin {
@@ -34,7 +34,7 @@ export class sign extends plugin {
 
     if (!Config.remote) {
       try {
-        providers = Data.readJSON('signlist.json', '../');
+        providers = Data.readJSON('signlist.json', Plugin_Path);
       } catch (error) {
         return false;
       }
