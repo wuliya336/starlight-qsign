@@ -1,5 +1,5 @@
 import common from '../../../lib/common/common.js';
-import { Config } from '../components/index.js';
+import { Config, Data } from '../components/index.js';
 import axios from 'axios';
 
 export class sign extends plugin {
@@ -29,75 +29,90 @@ export class sign extends plugin {
       { name: 'Gitee', url: 'https://gitee.com/OverTimeBunny/starlight-qsign/raw/api/signlist.json' }
     ];
 
-    try {
-      const responses = await Promise.all(urls.map(async ({ name, url }) => {
-        try {
-          const response = await axios.get(url, { timeout: 5000 });
-          return { name, data: response.data };
-        } catch (error) {
-          return { name, error };
-        }
-      }));
+    let providers;
+    let responses;
 
-      const successfulResponse = responses.find(({ error }) => !error);
-      if (!successfulResponse) {
-        await e.reply('获取公共签名API列表云端信息失败，请稍后重试');
+    if (Config.remote === 0) {
+      try {
+        providers = Data.readJSON('signlist.json', '../');
+      } catch (error) {
         return false;
       }
-
-      const { name, data: providers } = successfulResponse;
-      const userAgent = 'starlight-qsign';
-      let msg = ['公共签名API列表'];
-
-      for (const [provider, providerInfo] of Object.entries(providers)) {
-        msg.push(`由 ${provider} 提供:`);
-        let providerMsgs = [];
-        let tasks = Object.entries(providerInfo).flatMap(([key, url]) => {
-          if (key === 'memo') {
-            msg.push(`备注: ${providerInfo.memo}`);
-            return [];
-          }
-          return [(async () => {
-            const start = Date.now();
-            try {
-              const response = await axios.get(url, { headers: { 'User-Agent': userAgent }, timeout: 5000 });
-              const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
-              const delay = `${Date.now() - start}ms`;
-              return `${key}: ${status} ${delay}\n${url}`;
-            } catch (error) {
-              return `${key}: ❎ 异常 timeout\n${url}`;
-            }
-          })()];
-        });
-
-        let results = [];
-        if (concurrentLimit > 0) {
-          for (let i = 0; i < tasks.length; i += concurrentLimit) {
-            const batch = tasks.slice(i, i + concurrentLimit);
-            try {
-              results.push(...(await Promise.all(batch)));
-            } catch (batchError) {
-            }
-          }
-        } else {
+    } else {
+      try {
+        responses = await Promise.all(urls.map(async ({ name, url }) => {
           try {
-            results = await Promise.all(tasks);
-          } catch (allError) {
+            const response = await axios.get(url, { timeout: 5000 });
+            return { name, data: response.data };
+          } catch (error) {
+            return { name, error };
           }
+        }));
+
+        const successfulResponse = responses.find(({ error }) => !error);
+        if (!successfulResponse) {
+          await e.reply('获取公共签名API列表云端信息失败，请稍后重试');
+          return false;
         }
 
-        providerMsgs.push(results.join('\n'));
-        msg.push(providerMsgs.join('\n'));
+        providers = successfulResponse.data;
+
+      } catch (error) {
+        console.log('获取云端数据失败', error);
+        return false;
+      }
+    }
+
+    const userAgent = 'starlight-qsign';
+    let msg = ['公共签名API列表'];
+
+    for (const [provider, providerInfo] of Object.entries(providers)) {
+      msg.push(`由 ${provider} 提供:`);
+      let providerMsgs = [];
+      let tasks = Object.entries(providerInfo).flatMap(([key, url]) => {
+        if (key === 'memo') {
+          msg.push(`备注: ${providerInfo.memo}`);
+          return [];
+        }
+        return [(async () => {
+          const start = Date.now();
+          try {
+            const response = await axios.get(url, { headers: { 'User-Agent': userAgent }, timeout: 5000 });
+            const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
+            const delay = `${Date.now() - start}ms`;
+            return `${key}: ${status} ${delay}\n${url}`;
+          } catch (error) {
+            return `${key}: ❎ 异常 timeout\n${url}`;
+          }
+        })()];
+      });
+
+      let results = [];
+      if (concurrentLimit > 0) {
+        for (let i = 0; i < tasks.length; i += concurrentLimit) {
+          const batch = tasks.slice(i, i + concurrentLimit);
+          try {
+            results.push(...(await Promise.all(batch)));
+          } catch (batchError) {
+            console.log('批量请求失败', batchError);
+          }
+        }
+      } else {
+        try {
+          results = await Promise.all(tasks);
+        } catch (allError) {
+          console.log('请求失败', allError);
+        }
       }
 
-      const requestTime = new Date().toLocaleString('zh-CN', { hour12: false });
-      msg.push(`数据更新于: ${requestTime}`);
-
-      await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
-      return true;
-    } catch (error) {
-      await e.reply('获取公共签名API列表时发生错误，请稍后重试');
-      return false;
+      providerMsgs.push(results.join('\n'));
+      msg.push(providerMsgs.join('\n'));
     }
+
+    const requestTime = new Date().toLocaleString('zh-CN', { hour12: false });
+    msg.push(`数据更新于: ${requestTime}`);
+
+    await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
+    return true;
   }
 }

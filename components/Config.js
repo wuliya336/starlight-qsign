@@ -58,6 +58,11 @@ class Config {
     return this.getDefOrConfig('sign').state
    }
 
+  /* 本地与远程的切换 */
+    get rmote() {
+      return this.getDefOrConfig('sign').rmote
+  }
+
    /* 签名统计 */
    get state() {
     return this.getDefOrConfig('state').state_url

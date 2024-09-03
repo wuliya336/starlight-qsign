@@ -8,6 +8,15 @@ export const cfgSchema = {
           def: true,
           desc: '是否开启签名列表',
           fileName: 'sign'
+        },
+        rmote: {
+          title: '远程功能',
+          key: '远程限制',
+          type: 'num',
+          def: 1,
+          input: (n) => Math.min(1, Math.max(0, (n * 1 || 100))),
+          desc: '是否远程功能，开启后将从服务器获取数据',
+          fileName: 'rmote'
         },      
         concurrent_limit: {
             title: '并发限制',
