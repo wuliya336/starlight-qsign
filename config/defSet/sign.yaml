@@ -1,6 +1,10 @@
 # 是否开启签名列表
 signlist: true
 # 使用远程
-rmote: 1
+remote: true
 # 并发限制
 concurrent_limit: 10
+# 远程地址
+remoteurls:
+  - name: 'Gitlab'
+    url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json'

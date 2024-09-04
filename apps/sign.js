@@ -1,5 +1,5 @@
 import common from '../../../lib/common/common.js';
-import { Config, Data, Plugin_Path } from '../components/index.js';
+import { Config, Data, Plugin_Path, YamlReader } from '../components/index.js';
 import axios from 'axios';
 
 export class sign extends plugin {
@@ -23,11 +23,8 @@ export class sign extends plugin {
     await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
     const concurrentLimit = Config.concurrent_limit || 0;
-    const urls = [
-      { name: 'Gitlab', url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json' },
-      { name: 'GitHub', url: 'https://github.com/wuliya336/starlight-qsign/raw/api/signlist.json' },
-      { name: 'Gitee', url: 'https://gitee.com/OverTimeBunny/starlight-qsign/raw/api/signlist.json' }
-    ];
+    const yamlReader = new YamlReader(`${Plugin_Path}/config/config/sign.yaml`);
+    const urls = yamlReader.get('remoteurls'); 
 
     let providers;
     let responses;
@@ -93,14 +90,12 @@ export class sign extends plugin {
           try {
             results.push(...(await Promise.all(batch)));
           } catch (batchError) {
-            console.log('批量请求失败', batchError);
           }
         }
       } else {
         try {
           results = await Promise.all(tasks);
         } catch (allError) {
-          console.log('请求失败', allError);
         }
       }
 
