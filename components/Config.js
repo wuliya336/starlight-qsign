@@ -59,9 +59,14 @@ class Config {
    }
 
   /* 本地与远程的切换 */
-    get remote() {
+  get remote() {
       return this.getDefOrConfig('sign').remote
   }
+
+  /* 远程地址 */
+  get remoteurls() {
+    return this.getDefOrConfig('sign').remoteurls
+}
 
    /* 签名统计 */
    get state() {

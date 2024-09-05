@@ -1,5 +1,5 @@
 import common from '../../../lib/common/common.js';
-import { Config, Data, Plugin_Path, YamlReader } from '../components/index.js';
+import { Config, Data, Plugin_Path } from '../components/index.js';
 import axios from 'axios';
 
 export class sign extends plugin {
@@ -23,8 +23,7 @@ export class sign extends plugin {
     await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
     const concurrentLimit = Config.concurrent_limit || 0;
-    const yamlReader = new YamlReader(`${Plugin_Path}/config/config/sign.yaml`);
-    const urls = yamlReader.get('remoteurls'); 
+    const urls = Config.remoteurls; 
 
     let providers;
     let responses;
