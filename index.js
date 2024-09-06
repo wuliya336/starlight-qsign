@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
-import { Version, Config } from './components/index.js';
+import axios from 'axios';
+import { Version, Config, Plugin_Path } from './components/index.js';
 
 let ret = []
 
@@ -24,6 +25,16 @@ for (let i in files) {
     continue
   }
   apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
+}
+
+if (!Config.remote) {
+  const url = 'https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/localsignlist.json';
+  const filePath = path.resolve(`${Plugin_Path}/signlist.json`);
+  try {
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    fs.writeFileSync(filePath, response.data);
+  } catch (error) {
+  }
 }
 
 logger.info(chalk.blue(`---------=.=---------`))
