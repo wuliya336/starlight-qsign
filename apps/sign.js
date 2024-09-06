@@ -84,7 +84,7 @@ export class sign extends plugin {
       msg.push(results.join('\n'));
     }
 
-    msg.push(`数据更新于: ${requestTime}||"未知"`);
+    msg.push(`数据更新于: ${requestTime}`);
     await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
     return true;
   }

@@ -5,7 +5,7 @@
 starlight-qsign`是一个`Yunzai-Bot`的扩展插件，提供公共签名列表，45解决方案功能<br>
 
 ---
-<mark>九月份正式回归<mark>
+<mark>本插件，暂停维护<mark>
 ## 安装与更新
 
 ### 使用Git安装（推荐）
@@ -33,12 +33,12 @@ pnpm install --filter=starlight-qsign
 ---
 
 ## 使用帮助
-
+## 本插件支持本地与远程切换
 **对机器人发送`#星点签名帮助`可获取本插件帮助<br>**
 ![帮助图](./resources/help/help.png)<br>
 **对机器人发送<span style="color: red;">`#API列表`或`45`</span>即可获取本插件所收集的公共签名列表<br>**
 **如需更新发送<span style="color: orange;">`#星点签名更新`</span>,如需设置发送<span style="color: orange;">`#星点签名设置`</span>**
-
+![设置图](./resources/admin/admin.jpg)<br>
 ## 贡献
 
 **如果你也想参与贡献并提供自己所搭建的签名服务,请提交并pr<br>**
@@ -58,16 +58,20 @@ pnpm install --filter=starlight-qsign
 ```
 
 #### 参数说明
+##### 本插件支持本地与远程
 
-**`name`为提供者名称<br>**
-**`txlib`为协议版本<br>**
-**`sign`为签名地址<br>**
-**`memo`为可选项，`info`用于输出备注，可放统计量，签名主站，不可放置广告<br>**
+|  参数   |    说明       | 备注   |
+| :--:    | ---:         | :---   |
+|  name   |    提供者名称 | 如: example       |
+|  txlib   |    签名版本 |  如: 9.0.60   |
+|  sign   |    签名地址 |  如: http://example.com   |
+|  memo   |   备注  |     | 无
+|  date   |   提交日期  |   如: 2024-09-06  |
+
 
 ## 更新计划
-
-- [ ] V4重构
-- [ ] 统计量定时推送
+- [ ] 获取当前实例签名地址
+- [ ] 自动切换可用签名
 - [x] 备注信息
 
 # 资源
