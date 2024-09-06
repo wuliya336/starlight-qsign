@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
-import { Version } from './components/index.js';
+import { Version, Config } from './components/index.js';
 
 let ret = []
 

@@ -68,15 +68,6 @@ class Config {
     return this.getDefOrConfig('sign').remoteurls
 }
 
-   /* 签名统计 */
-   get state() {
-    return this.getDefOrConfig('state').state_url
-   }
-
-   /* 签名统计地址 */
-   get state_url() {
-    return this.getDefOrConfig('state').concurrent_limit
-   }
 
   /** 默认配置和用户配置 */
   getDefOrConfig(name) {
