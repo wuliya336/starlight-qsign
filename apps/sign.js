@@ -25,10 +25,11 @@ export class sign extends plugin {
     const concurrentLimit = Config.concurrent_limit || 0;
     const urls = Config.remoteurls;
     let providers;
+    let requestTime = "未知";
 
     const localData = Data.readJSON('signlist.json', Plugin_Path);
     if (localData) {
-      requestTime = localData.date;
+      requestTime = localData.date || requestTime;
       providers = localData;
     } else {
       await e.reply('本地文件不存在，请稍后再尝试');
