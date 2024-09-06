@@ -9,10 +9,10 @@ export const cfgSchema = {
           desc: '是否开启签名列表',
           fileName: 'sign'
         },
-        rmote: {
+        remote: {
           title: '远程功能',
           key: '远程功能',
-          def: 1,
+          def: true,
           desc: '是否远程功能，开启后将从服务器获取数据',
           fileName: 'sign'
         },      

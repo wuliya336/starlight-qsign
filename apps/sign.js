@@ -24,74 +24,66 @@ export class sign extends plugin {
 
     const concurrentLimit = Config.concurrent_limit || 0;
     const urls = Config.remoteurls;
-
     let providers;
-    let responses;
 
-    if (!Config.remote) {
-      providers = Data.readJSON('signlist.json', Plugin_Path);
-      if (!providers) {
-        await e.reply('本地文件不存在，请稍后再尝试');
-        return false;
-      }
-
-      const { time, ...signList } = providers;
-      providers = signList;
+    const localData = Data.readJSON('signlist.json', Plugin_Path);
+    if (localData) {
+      requestTime = localData.date;
+      providers = localData;
     } else {
-      responses = await Promise.all(urls.map(({ name, url }) =>
+      await e.reply('本地文件不存在，请稍后再尝试');
+      return false;
+    }
+
+    if (Config.remote) {
+      const responses = await Promise.all(urls.map(({ name, url }) =>
         axios.get(url, { timeout: 5000 })
           .then(response => ({ name, data: response.data }))
           .catch(() => ({ name, error: true }))
       ));
 
       const successfulResponse = responses.find(({ error }) => !error);
-      if (!successfulResponse) {
+      if (successfulResponse) {
+        providers = successfulResponse.data;
+      } else {
         await e.reply('获取公共签名API列表信息失败，请稍后重试');
         return false;
       }
-
-      providers = successfulResponse.data;
     }
 
     const userAgent = 'starlight-qsign';
     let msg = ['公共签名API列表'];
 
     for (const [provider, providerInfo] of Object.entries(providers)) {
+      if (provider === 'date') continue;
+
       msg.push(`由 ${provider} 提供:`);
-      let providerMsgs = [];
-      let tasks = Object.entries(providerInfo).flatMap(([key, url]) => {
+      let tasks = Object.entries(providerInfo).map(([key, url]) => {
         if (key === 'memo') {
           msg.push(`备注: ${providerInfo.memo}`);
-          return [];
+          return null;
         }
-        return [() =>
-          axios.get(url, { headers: { 'User-Agent': userAgent }, timeout: 5000 })
-            .then(response => {
-              const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
-              const delay = `${Date.now() - start}ms`;
-              return `${key}: ${status} ${delay}\n${url}`;
-            })
-            .catch(() => `${key}: ❎ 异常 超时\n${url}`)
-        ];
-      });
+        return async () => {
+          const start = Date.now();
+          try {
+            const response = await axios.get(url, { headers: { 'User-Agent': userAgent }, timeout: 5000 });
+            const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
+            const delay = `${Date.now() - start}ms`;
+            return `${key}: ${status} ${delay}\n${url}`;
+          } catch {
+            return `${key}: ❎ 异常 超时\n${url}`;
+          }
+        };
+      }).filter(task => task);
 
-      let results = [];
-      if (concurrentLimit > 0) {
-        for (let i = 0; i < tasks.length; i += concurrentLimit) {
-          const batch = tasks.slice(i, i + concurrentLimit).map(task => task());
-          results.push(...await Promise.all(batch));
-        }
-      } else {
-        results = await Promise.all(tasks.map(task => task()));
-      }
+      const results = concurrentLimit > 0
+        ? (await Promise.all(tasks.map(task => task())))
+        : await Promise.all(tasks.map(task => task()));
 
-      providerMsgs.push(results.join('\n'));
-      msg.push(providerMsgs.join('\n'));
+      msg.push(results.join('\n'));
     }
 
-    const requestTime = providers.time || "未知";
-    msg.push(`数据更新于: ${requestTime}`);
-
+    msg.push(`数据更新于: ${requestTime}||"未知"`);
     await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
     return true;
   }
