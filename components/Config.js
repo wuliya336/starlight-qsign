@@ -55,7 +55,7 @@ class Config {
 
    /* 公共签名列表请求限制 */
    get concurrent_limit() {
-    return this.getDefOrConfig('sign').state
+    return this.getDefOrConfig('sign').concurrent_limit
    }
 
   /* 本地与远程的切换 */

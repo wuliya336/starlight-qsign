@@ -89,7 +89,7 @@ export class sign extends plugin {
       msg.push(providerMsgs.join('\n'));
     }
 
-    const requestTime = providers.time || 未知
+    const requestTime = providers.time || "未知";
     msg.push(`数据更新于: ${requestTime}`);
 
     await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
