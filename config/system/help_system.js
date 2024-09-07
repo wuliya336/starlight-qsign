@@ -30,12 +30,8 @@ export const helpList = [{
       desc: '发送签名使用教程'
   }, {
     icon: 35,
-    title: '#API统计',
-    desc: '获取自己搭建的签名API的访问量'
-  }, {
-    icon: 71,
-    title: '项目地址',
-    desc: '发送云崽项目等相关地址'
+    title: '#星点签名查询签名地址',
+    desc: '查询当前实例ICQQ的签名地址'
   }]
 }, {
   group: '管理命令，仅主人可用',
