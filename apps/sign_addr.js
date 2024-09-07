@@ -17,6 +17,7 @@ export class addr extends plugin {
   }
 
   async addr(e) {
+    if (!this.e.isMaster) { return true }
     const platformInfo = getPlatformInfo(e);
     let signApiAddr = '未知';
 
