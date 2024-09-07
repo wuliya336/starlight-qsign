@@ -35,7 +35,7 @@ pnpm install --filter=starlight-qsign
 ## 使用帮助
 ## 本插件支持本地与远程切换
 **对机器人发送`#星点签名帮助`可获取本插件帮助<br>**
-![帮助图](./resources/help/help.png)<br>
+![帮助图](./resources/help/help.jpg)<br>
 **对机器人发送<span style="color: red;">`#API列表`或`45`</span>即可获取本插件所收集的公共签名列表<br>**
 **如需更新发送<span style="color: orange;">`#星点签名更新`</span>,如需设置发送<span style="color: orange;">`#星点签名设置`</span>**
 ![设置图](./resources/admin/admin.jpg)<br>
