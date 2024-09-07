@@ -70,7 +70,7 @@ pnpm install --filter=starlight-qsign
 
 
 ## 更新计划
-- [ ] 获取当前实例签名地址
+- [x] 获取当前实例签名地址
 - [ ] 自动切换可用签名
 - [x] 备注信息
 
