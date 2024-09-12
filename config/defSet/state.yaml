@@ -1,0 +1,4 @@
+# 是否开启签名统计
+state: false
+# 统计量访问地址
+state_url: http://127.0.0.1:3000/api/state.php
