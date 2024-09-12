@@ -13,7 +13,7 @@ export class XDUpdate extends plugin {
         super({
             name: '星点签名插件',
             event: 'message',
-            priority: Infinity,
+            priority: -20,
             rule: [
                 {
                     reg: '^#*(starlight-qsign|星点签名)(插件)?(强制)?更新$',

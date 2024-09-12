@@ -7,7 +7,7 @@ export class sign extends plugin {
     super({
       name: '星点签名插件',
       event: 'message',
-      priority: Infinity,
+      priority: -20,
       rule: [
         {
           reg: /^(#)?(公共(api)?(签名)?(api)?|api(列表|签名)|45)$/i,

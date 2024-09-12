@@ -9,7 +9,7 @@ export class setting extends plugin {
         super({
             name: '星点签名',
             event: 'message',
-            priority: Infinity,
+            priority: -20,
             rule: [
                 {
                     reg: sysCfgReg,
