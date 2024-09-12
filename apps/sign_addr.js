@@ -6,7 +6,7 @@ export class addr extends plugin {
     super({
       name: '星点签名插件',
       event: 'message',
-      priority: Infinity,
+      priority: 100,
       rule: [
         {
           reg: /^(#)?(星点(签名)?)?(查询)?签名地址$/i,
