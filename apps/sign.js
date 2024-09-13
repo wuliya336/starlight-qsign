@@ -32,13 +32,12 @@ export class sign extends plugin {
       requestTime = localData.date || requestTime;
       providers = localData;
     } else {
-      await e.reply('本地文件不存在，请稍后再尝试');
       return false;
     }
 
     if (Config.remote) {
       const responses = await Promise.all(urls.map(({ name, url }) =>
-        axios.get(url, { timeout: 5000 })
+        axios.get(url, { timeout: 5000, proxy: false })
           .then(response => ({ name, data: response.data }))
           .catch(() => ({ name, error: true }))
       ));

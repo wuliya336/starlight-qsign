@@ -8,3 +8,7 @@ concurrent_limit: 10
 remoteurls:
   - name: 'Gitlab'
     url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json'
+  - name: 'Github'
+    url: 'https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'
+  - name: 'Github Proxy'
+    url: 'https://ghp.ci/https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'

@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import chalk from 'chalk';
-import axios from 'axios';
 import { Version, Config, Plugin_Path } from './components/index.js';
 
 let ret = []
@@ -13,7 +12,6 @@ files.forEach((file) => {
   ret.push(import(`./apps/${file}`))
 })
 
-ret = await Promise.allSettled(ret)
 
 let apps = {}
 for (let i in files) {
@@ -27,15 +25,6 @@ for (let i in files) {
   apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
 }
 
-if (!Config.remote) {
-  const url = 'https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/localsignlist.json';
-  const filePath = path.resolve(`${Plugin_Path}/signlist.json`);
-  try {
-    const response = await axios.get(url, { responseType: 'arraybuffer' });
-    fs.writeFileSync(filePath, response.data);
-  } catch (error) {
-  }
-}
 
 logger.info(chalk.blue(`---------=.=---------`))
 logger.info(chalk.blue(`星点签名插件${Version.ver}载入成功^_^`))
