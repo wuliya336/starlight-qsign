@@ -8,11 +8,11 @@
         "memo": "推荐使用，但ICQQ版本≤0.6.10的请先在根目录执行：curl -sSL Qsign.icu/ver |bash"
     },
     "zhaodice": {
-        "9̶0̶5̶6̶ 9075(1)": "https://qsign.trpgbot.com",
+        "9̶0̶5̶6̶ 9095(1)": "https://qsign.trpgbot.com",
         "9̶0̶5̶6̶ 9075(2)": "https://qsign-v4.trpgbot.com",
         "9̶0̶5̶6̶ 9075(3)": "https://sbtx.f3.ttvt.cc?key=miraibbs",
-        "9̶0̶5̶6̶ 9075(4)": "https://qsign.chahuyun.cn?key=miraibbs",
+        "9056(4)": "https://qsign.chahuyun.cn?key=miraibbs",
         "memo": "(1)(2)签名没有KEY，稳定，但是需要挂梯子。(3)(4)的签名有KEY，不需要梯子，但是不稳定"
     },
-    "date": "2024-07-31"
+    "date": "2024-09-14"
 }
