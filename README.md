@@ -53,6 +53,11 @@ pnpm install --filter=starlight-qsign
 **对机器人发送<span style="color: red;">`#API列表`或`45`</span>即可获取本插件所收集的公共签名列表<br>**
 **如需更新发送<span style="color: orange;">`#星点签名更新`</span>,如需设置发送<span style="color: orange;">`#星点签名设置`</span>**
 ![设置图](./resources/admin/admin.jpg)<br>
+**新增API查看功能**
+
+**<span style="color: orange;">`#星点签名查询签名地址`</span>**
+
+![帮助图](./resources/help/qsign.png)
 ## 贡献
 
 **如果你也想参与贡献并提供自己所搭建的签名服务,请提交并pr<br>**
