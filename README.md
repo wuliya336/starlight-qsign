@@ -1,6 +1,6 @@
 # <center>starlight-qsign</center>
 
-![动态访问量](https://count.wuliya.icu?name=starlight-qsign?theme=rule34)<br>
+![动态访问量](https://count.wuliya.icu?name=starlight-qsign&theme=rule34)<br>
 [![Gitlab](https://img.shields.io/badge/Gitlab-星点签名-black?style=flat-square&logo=gitlab)](https://gitlab.com/v17360963/starlight-qsign)[![Github](https://img.shields.io/badge/Github-星点签名-black?style=flat-square&logo=github)](https://github.com/wuliya336/starlight-qsign)[![云崽bot](https://img.shields.io/badge/云崽-v3.0.0-black?style=flat-square&logo=dependabot)](https://gitee.com/Le-niao/Yunzai-Bot)<br>
 starlight-qsign`是一个`Yunzai-Bot`的扩展插件，提供公共签名列表，45解决方案功能<br>
 
