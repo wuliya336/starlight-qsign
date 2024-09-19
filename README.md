@@ -21,7 +21,7 @@ pnpm install --filter=starlight-qsign
 #### **使用GitHub镜像**
 
 ```
-git clone --depth=1 https://gh-proxy.com/https://github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
+git clone --depth=1 https://gitclone.com/github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
 ```
 
 ~~~
