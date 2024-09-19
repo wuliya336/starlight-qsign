@@ -52,7 +52,11 @@ export class sign extends plugin {
     }
 
     const userAgent = 'starlight-qsign';
-    let msg = ['公共签名API列表'];
+    let msg = [
+      '公共签名API列表',
+      '提示:',
+      'ICQQ版本≤0.6.10的请先在根目录执行: curl -sL https://gitlab.com/v17360963/starlight-qsign/-/raw/qsign/qsign.sh | bash'
+    ];
 
     for (const [provider, providerInfo] of Object.entries(providers)) {
       if (provider === 'date') continue;

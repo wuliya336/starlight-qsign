@@ -18,10 +18,10 @@ git clone --depth=1 https://github.com/wuliya336/starlight-qsign ./plugins/starl
 ~~~
 pnpm install --filter=starlight-qsign
 ~~~
-#### **使用Gitee镜像**
+#### **使用GitHub镜像**
 
 ```
-git clone --depth=1 https://gitee.com/OvertimeBunny/starlight-qsign ./plugins/starlight-qsign/
+git clone --depth=1 https://gh-proxy.com/https://github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
 ```
 
 ~~~
