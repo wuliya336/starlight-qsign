@@ -127,7 +127,7 @@ if (Config.remote) {
     }
 
     msg.push(`数据更新于: ${requestTime}`);
-    await e.reply(common.makeForwardMsg(e, msg, '*点击查看公共签名API列表'));
+    await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
     return true;
   }
 }
