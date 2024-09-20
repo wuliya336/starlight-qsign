@@ -36,46 +36,47 @@ export class sign extends plugin {
     }
 
 
-    if (Config.remote) {
-      try {
-        const response = await axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
-          params: {
-            path: 'signlist.json',
-            sha: 'api',
-            per_page: 1,
-          },
-          headers: {
-            'Accept': 'application/vnd.github.v3+json'
-          }
-        });
-
-        if (response.status === 200 && response.data.length > 0) {
-          const commit = response.data[0];
-          const commitDate = new Date(commit.commit.committer.date);
-          requestTime = commitDate.toISOString().split('T')[0];
-        }
-      } catch (error) {
-      }
-
-
-      const responses = await Promise.all(
-        urls.map(({ name, url }) =>
-          axios.get(url, { timeout: 5000, proxy: false })
-            .then(response => ({ name, data: response.data }))
-            .catch(() => ({ name, error: true }))
-        )
-      );
-
-      const successfulResponse = responses.find(({ error }) => !error);
-      if (successfulResponse) {
-        providers = successfulResponse.data;
-      } else {
-        await e.reply('获取公共签名API列表信息失败，请稍后重试');
-        return false;
-      }
-    } else {
-      requestTime = localData.date || requestTime;
+if (Config.remote) {
+  axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
+    params: {
+      path: 'signlist.json',
+      sha: 'api',
+      per_page: 1,
+    },
+    headers: {
+      'Accept': 'application/vnd.github.v3+json'
     }
+  })
+  .then(response => {
+    if (response.status === 200 && response.data.length > 0) {
+      const commit = response.data[0];
+      const commitDate = new Date(commit.commit.committer.date);
+      commitDate.setHours(commitDate.getHours() + 8); 
+      requestTime = commitDate.toISOString().split('T')[0];
+    }
+  })
+  .catch(error => {
+  });
+
+  const responses = await Promise.all(
+    urls.map(({ name, url }) =>
+      axios.get(url, { timeout: 5000, proxy: false })
+        .then(response => ({ name, data: response.data }))
+        .catch(() => ({ name, error: true }))
+    )
+  );
+
+  const successfulResponse = responses.find(({ error }) => !error);
+  if (successfulResponse) {
+    providers = successfulResponse.data;
+  } else {
+    await e.reply('获取公共签名API列表信息失败，请稍后重试');
+    return false;
+  }
+} else {
+  requestTime = localData.date || requestTime;
+}
+
 
     const userAgent = 'starlight-qsign';
 
