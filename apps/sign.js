@@ -55,7 +55,8 @@ export class sign extends plugin {
     let msg = [
       '公共签名API列表',
       '提示:',
-      'ICQQ版本≤0.6.10的请先在根目录执行: curl -sL https://gitlab.com/v17360963/starlight-qsign/-/raw/qsign/qsign.sh | bash'
+      'ICQQ版本≤0.6.10的请先在根目录执行以下脚本添加协议配置',
+      'curl -sL https://gitlab.com/v17360963/starlight-qsign/-/raw/qsign/qsign.sh | tr -d \'\\r\' | bash'
     ];
 
     for (const [provider, providerInfo] of Object.entries(providers)) {
