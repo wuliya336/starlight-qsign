@@ -1,6 +1,6 @@
 {
     "时雨": {
-        "9017": "http://gz.console.microgg.cn:2536",
+        "9017、9090": "http://gz.console.microgg.cn:2536",
         "memo": "需要加群659945190，私聊群主申请白名单，不建议使用"
     },
     "hlhs": {
@@ -9,9 +9,10 @@
     },
     "zhaodice": {
         "9̶0̶5̶6̶ 9095(1)": "https://qsign.trpgbot.com",
-        "9̶0̶5̶6̶ 9075(2)": "https://qsign-v4.trpgbot.com",
-        "9̶0̶5̶6̶ 9075(3)": "https://sbtx.f3.ttvt.cc?key=miraibbs",
-        "9056(4)": "https://qsign.chahuyun.cn?key=miraibbs",
-        "memo": "(1)(2)签名没有KEY，稳定，但是需要挂梯子。(3)(4)的签名有KEY，不需要梯子，但是不稳定"
+        "9̶0̶5̶6̶ (2)": "http://qsign-v3.trpgbot.com",
+        "9̶0̶5̶6̶ (3)": "https://qsign.chahuyun.cn",
+        "9̶0̶5̶6̶ (4)": "http://qsign.w1.luyouxia.net",
+        "9056(5)": "https://qsign.chahuyun.cn?key=miraibbs",
+        "memo": "签名除了(5)都要挂梯子。"
     }
 }
