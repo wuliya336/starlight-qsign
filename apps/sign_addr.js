@@ -25,7 +25,7 @@ export class addr extends plugin {
       signApiAddr = getSignApiAddr();
     }
 
-    return await Common.render('sign/addr/index', {
+    return await Common.render('sign/addr', {
       signApiAddr,
       platformInfo
     }, { e, scale: 1.4 });
