@@ -84,7 +84,7 @@ if (Config.remote) {
       '公共签名API列表:',
       '提示:',
       'ICQQ版本≤0.6.10的请先在根目录执行以下脚本添加协议配置:',
-      'curl -sL https://gitlab.com/v17360963/starlight-qsign/-/raw/qsign/qsign.sh | tr -d \'\\r\' | bash'
+      'bash <(curl -L https://blog.wuliya.cn/2024/09/21/%E5%8D%8F%E8%AE%AE%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/version.sh)'
     ];
 
 
