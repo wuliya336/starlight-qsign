@@ -5,7 +5,7 @@ import axios from 'axios';
 export class sign extends plugin {
   constructor() {
     super({
-      name: '星点签名插件',
+      name: '星点签名:签名列表',
       event: 'message',
       priority: -20,
       rule: [

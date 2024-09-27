@@ -11,7 +11,7 @@ try {
 export class XDUpdate extends plugin {
     constructor() {
         super({
-            name: '星点签名插件',
+            name: '星点签名:更新',
             event: 'message',
             priority: -20,
             rule: [

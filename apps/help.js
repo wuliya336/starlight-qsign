@@ -7,8 +7,7 @@ const helpPath = `${_path}/plugins/starlight-qsign/resources/help`
 export class help extends plugin {
     constructor() {
         super({
-            name: '星点签名插件',
-            dsc: '星点签名帮助',
+            name: '星点签名:帮助',
             event: 'message',
             priority: 100,
             rule: [

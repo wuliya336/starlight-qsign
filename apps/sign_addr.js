@@ -4,7 +4,7 @@ import { Common } from '../components/index.js'
 export class addr extends plugin {
   constructor() {
     super({
-      name: '星点签名插件',
+      name: '星点签名:签名地址',
       event: 'message',
       priority: -20,
       rule: [

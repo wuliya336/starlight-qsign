@@ -7,7 +7,7 @@ let sysCfgReg = new RegExp(`^#星点签名设置\\s*(${keys.join('|')})?\\s*(.*)
 export class setting extends plugin {
     constructor() {
         super({
-            name: '星点签名',
+            name: '星点签名:设置',
             event: 'message',
             priority: -20,
             rule: [
