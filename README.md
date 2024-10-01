@@ -28,15 +28,6 @@ git clone --depth=1 https://gitclone.com/github.com/wuliya336/starlight-qsign ./
 pnpm install --filter=starlight-qsign
 ~~~
 
-#### **使用Gitlab**
-
-```
-git clone --depth=1 https://gitlab.com/v17360963/starlight-qsign.git ./plugins/starlight-qsign/
-```
-
-~~~
-pnpm install --filter=starlight-qsign
-~~~
 
 ### 手工下载安装（不推荐）
 

@@ -6,8 +6,6 @@ remote: true
 concurrent_limit: 10
 # 远程地址
 remoteurls:
-  - name: 'Gitlab'
-    url: 'https://gitlab.com/v17360963/starlight-qsign/raw/api/signlist.json'
   - name: 'Github'
     url: 'https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'
   - name: 'Github Proxy'
