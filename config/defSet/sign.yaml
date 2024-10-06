@@ -9,4 +9,4 @@ remoteurls:
   - name: 'Github'
     url: 'https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'
   - name: 'Github Proxy'
-    url: 'https://ghp.ci/https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'
+    url: 'https://gh.wuliya.icu/https://raw.githubusercontent.com/wuliya336/starlight-qsign/api/signlist.json'

@@ -5,7 +5,7 @@ import axios from 'axios';
 export class sign extends plugin {
   constructor() {
     super({
-      name: '星点签名:签名列表',
+      name: '星点签名:签名信息列表状态',
       event: 'message',
       priority: -20,
       rule: [
@@ -19,6 +19,10 @@ export class sign extends plugin {
 
   async list(e) {
     if (!Config.signlist) return false;
+
+    await e.reply('没救了', true);
+
+    await common.sleep(1000);
 
     await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
