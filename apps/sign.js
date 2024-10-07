@@ -22,7 +22,7 @@ export class sign extends plugin {
 
     await e.reply('没救了', true);
 
-    await common.sleep(1000);
+    await common.sleep(500);
 
     await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
