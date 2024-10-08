@@ -47,6 +47,10 @@ class Config {
   get renderScale() {
     return this.getDefOrConfig('config').renderScale
   }
+  /** 仓库推送 */
+  get GitHubPush() {
+    return this.getDefOrConfig('config').GitHubPush
+  }
 
    /* 公共签名列表 */
    get signlist() {

@@ -31,7 +31,6 @@ export class sign extends plugin {
     let requestTime = "未知";
     const urls = Config.remoteurls;
 
-
     const localData = Data.readJSON('signlist.json', Plugin_Path);
     if (localData) {
       providers = localData;
@@ -39,48 +38,46 @@ export class sign extends plugin {
       return false;
     }
 
+    if (Config.remote) {
+      axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
+        params: {
+          path: 'signlist.json',
+          sha: 'api',
+          per_page: 1,
+        },
+        headers: {
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      })
+      .then(response => {
+        if (response.status === 200 && response.data.length > 0) {
+          const commit = response.data[0];
+          const commitDate = new Date(commit.commit.committer.date);
+          commitDate.setHours(commitDate.getHours() + 8); 
+          requestTime = commitDate.toISOString().split('T')[0];
+        }
+      })
+      .catch(error => {
+      });
 
-if (Config.remote) {
-  axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
-    params: {
-      path: 'signlist.json',
-      sha: 'api',
-      per_page: 1,
-    },
-    headers: {
-      'Accept': 'application/vnd.github.v3+json'
+      const responses = await Promise.all(
+        urls.map(({ name, url }) =>
+          axios.get(url, { timeout: 5000, proxy: false })
+            .then(response => ({ name, data: response.data }))
+            .catch(() => ({ name, error: true }))
+        )
+      );
+
+      const successfulResponse = responses.find(({ error }) => !error);
+      if (successfulResponse) {
+        providers = successfulResponse.data;
+      } else {
+        await e.reply('获取公共签名API列表信息失败，请稍后重试');
+        return false;
+      }
+    } else {
+      requestTime = localData.date || requestTime;
     }
-  })
-  .then(response => {
-    if (response.status === 200 && response.data.length > 0) {
-      const commit = response.data[0];
-      const commitDate = new Date(commit.commit.committer.date);
-      commitDate.setHours(commitDate.getHours() + 8); 
-      requestTime = commitDate.toISOString().split('T')[0];
-    }
-  })
-  .catch(error => {
-  });
-
-  const responses = await Promise.all(
-    urls.map(({ name, url }) =>
-      axios.get(url, { timeout: 5000, proxy: false })
-        .then(response => ({ name, data: response.data }))
-        .catch(() => ({ name, error: true }))
-    )
-  );
-
-  const successfulResponse = responses.find(({ error }) => !error);
-  if (successfulResponse) {
-    providers = successfulResponse.data;
-  } else {
-    await e.reply('获取公共签名API列表信息失败，请稍后重试');
-    return false;
-  }
-} else {
-  requestTime = localData.date || requestTime;
-}
-
 
     const userAgent = 'starlight-qsign';
 
@@ -91,12 +88,10 @@ if (Config.remote) {
       'bash <(curl -L https://blog.wuliya.cn/2024/09/21/%E5%8D%8F%E8%AE%AE%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF/version.sh)'
     ];
 
-
     for (const [provider, providerInfo] of Object.entries(providers)) {
       if (provider === 'date') continue; 
 
       msg.push(`由 ${provider} 提供:`); 
-
 
       if (providerInfo.memo) {
         msg.push(`备注: ${providerInfo.memo}`);
@@ -131,7 +126,14 @@ if (Config.remote) {
     }
 
     msg.push(`数据更新于: ${requestTime}`);
-    await e.reply(common.makeForwardMsg(e, msg, '点击查看公共签名API列表'));
+
+
+    const forwardMsg = common.makeForwardMsg(e, msg, '点击查看公共签名API列表', {
+      nickname: '星点签名', 
+      user_id: Bot.uin  
+    });
+
+    await e.reply(forwardMsg);
     return true;
   }
 }

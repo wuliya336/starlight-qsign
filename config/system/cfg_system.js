@@ -13,7 +13,14 @@ export const cfgSchema = {
           title: '远程功能',
           key: '远程功能',
           def: true,
-          desc: '是否远程功能，开启后将从服务器获取数据',
+          desc: '是否开启远程功能，开启后将从服务器获取数据',
+          fileName: 'sign'
+        },      
+        GithubPush: {
+          title: '仓库更新检测推送',
+          key: '仓库更新检测推送',
+          def: false,
+          desc: '是否开启仓库更新检测推送，开启后将定时检测仓库更新并推送',
           fileName: 'sign'
         },      
         concurrent_limit: {
