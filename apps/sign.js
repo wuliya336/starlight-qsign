@@ -116,7 +116,6 @@ export class sign extends plugin {
 
     msgList.push(`数据更新于: ${requestTime}`);
 
-    // 使用Bot函数创建转发消息
     let bot = {nickname: "星点签名", user_id: Bot.uin};
     let msg = [{
       message: msgList.join('\n'),
