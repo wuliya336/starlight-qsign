@@ -21,9 +21,7 @@ export class sign extends plugin {
     if (!Config.signlist) return false;
 
     await e.reply('没救了', true);
-
     await common.sleep(500);
-
     await e.reply('正在获取公共签名API列表信息，请稍候...', true);
 
     const concurrentLimit = Config.concurrent_limit || 0;
@@ -79,9 +77,7 @@ export class sign extends plugin {
       requestTime = localData.date || requestTime;
     }
 
-    const userAgent = 'starlight-qsign';
-
-    let msg = [
+    let msgList = [
       '公共签名API列表:',
       '提示:',
       'ICQQ版本≤0.6.10的请先在根目录执行以下脚本添加协议配置:',
@@ -91,13 +87,11 @@ export class sign extends plugin {
     for (const [provider, providerInfo] of Object.entries(providers)) {
       if (provider === 'date') continue; 
 
-      msg.push(`由 ${provider} 提供:`); 
+      msgList.push(`由 ${provider} 提供:`); 
 
       if (providerInfo.memo) {
-        msg.push(`备注: ${providerInfo.memo}`);
+        msgList.push(`备注: ${providerInfo.memo}`);
       }
-
-      let providerMsg = []; 
 
       let tasks = Object.entries(providerInfo).map(([key, url]) => {
         if (key === 'memo') {
@@ -106,7 +100,7 @@ export class sign extends plugin {
         return async () => {
           const start = Date.now();
           try {
-            const response = await axios.get(url, { headers: { 'User-Agent': userAgent }, timeout: 5000 });
+            const response = await axios.get(url, { headers: { 'User-Agent': 'starlight-qsign' }, timeout: 5000 });
             const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
             const delay = `${Date.now() - start}ms`;
             return `${key}: ${status} ${delay}\n${url}`;
@@ -116,24 +110,20 @@ export class sign extends plugin {
         };
       }).filter(task => task);
 
-      const results = concurrentLimit > 0
-        ? (await Promise.all(tasks.map(task => task()))) 
-        : await Promise.all(tasks.map(task => task())); 
-
-      providerMsg.push(...results); 
-
-      msg.push(providerMsg.join('\n')); 
+      const results = await Promise.all(tasks.map(task => task())); 
+      msgList.push(results.join('\n')); 
     }
 
-    msg.push(`数据更新于: ${requestTime}`);
+    msgList.push(`数据更新于: ${requestTime}`);
 
+    // 使用Bot函数创建转发消息
+    let bot = {nickname: "星点签名", user_id: Bot.uin};
+    let msg = [{
+      message: msgList.join('\n'),
+      ...bot,
+    }];
 
-    const forwardMsg = common.makeForwardMsg(e, msg, '点击查看公共签名API列表', {
-      nickname: '星点签名', 
-      user_id: Bot.uin  
-    });
-
-    await e.reply(forwardMsg);
+    await e.reply(await Bot.makeForwardMsg(msg));
     return true;
   }
 }
