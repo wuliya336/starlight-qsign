@@ -41,6 +41,7 @@ export class sign extends plugin {
       requestTime = await this.getCommitDate();
 
       const responses = await this.fetch_sign(urls, concurrentLimit);
+
       const successfulResponse = responses.find(({ error }) => !error);
       if (successfulResponse) {
         providers = successfulResponse.data;
@@ -79,22 +80,22 @@ export class sign extends plugin {
   }
 
   async getCommitDate() {
-    const response = await axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
-      params: {
-        path: 'signlist.json',
-        sha: 'api',
-        per_page: 1,
-      },
-      headers: {
-        'Accept': 'application/vnd.github.v3+json'
+      const response = await axios.get('https://api.github.com/repos/wuliya336/starlight-qsign/commits', {
+        params: {
+          path: 'signlist.json',
+          sha: 'api',
+          per_page: 1,
+        },
+        headers: {
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      });
+      if (response.status === 200 && response.data.length > 0) {
+        const commit = response.data[0];
+        const commitDate = new Date(commit.commit.committer.date);
+        commitDate.setHours(commitDate.getHours() + 8); 
+        return commitDate.toISOString().split('T')[0];
       }
-    });
-    if (response.status === 200 && response.data.length > 0) {
-      const commit = response.data[0];
-      const commitDate = new Date(commit.commit.committer.date);
-      commitDate.setHours(commitDate.getHours() + 8); 
-      return commitDate.toISOString().split('T')[0];
-    }
     return "未知";
   }
 
@@ -116,11 +117,21 @@ export class sign extends plugin {
   }
 
   async fetchApiStatus(key, url) {
-    const start = Date.now();
-    const response = await axios.get(url, { headers: { 'User-Agent': 'starlight-qsign' }, timeout: 5000 });
-    const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
-    const delay = `${Date.now() - start}ms`;
-    return `${key}: ${status} ${delay}\n${url}`;
+    try {
+      const start = Date.now();
+      const response = await axios.get(url, { headers: { 'User-Agent': 'starlight-qsign' }, timeout: 5000 });
+      const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
+      const delay = `${Date.now() - start}ms`;
+      return `${key}: ${status} ${delay}\n${url}`;
+    } catch (error) {
+      if (error.response) {
+        console.error(`API ${key} 请求失败，状态码: ${error.response.status}`, error.response.data);
+      } else {
+        console.error(`API ${key} 请求失败，无响应: ${error.message}`);
+      }
+
+      return `${key}: ❎ 异常 (请求失败)\n${url}`;
+    }
   }
 
   async fetch_sign(urls, limit) {
@@ -131,7 +142,9 @@ export class sign extends plugin {
         urls.map(({ name, url }) =>
           axios.get(url, { timeout: 5000, proxy: false })
             .then(response => ({ name, data: response.data }))
-            .catch(() => ({ name, error: true }))
+            .catch(error => {
+              return { name, error: true };
+            })
         )
       );
     }
@@ -140,7 +153,9 @@ export class sign extends plugin {
     for (const { name, url } of urls) {
       const requestPromise = axios.get(url, { timeout: 5000, proxy: false })
         .then(response => ({ name, data: response.data }))
-        .catch(() => ({ name, error: true }));
+        .catch(error => {
+          return { name, error: true };
+        });
 
       queue.push(requestPromise);
 
