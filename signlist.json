@@ -6,11 +6,13 @@
         "9070": "https://api.qsign.icu/?key=Free"
     },
     "zhaodice": {
-        "9̶0̶5̶6̶ 9095(1)": "https://qsign.trpgbot.com",
-        "9̶0̶5̶6̶ (2)": "http://qsign-v3.trpgbot.com",
-        "9̶0̶5̶6̶ (3)": "https://qsign.chahuyun.cn",
-        "9̶0̶5̶6̶ (4)": "http://qsign.w1.luyouxia.net",
+        "9056(1)": "https://qsign.trpgbot.com",
+        "9056(2)": "http://qsign-v3.trpgbot.com",
+        "9056(3)": "https://qsign.chahuyun.cn",
+        "9056(4)": "http://qsign.w1.luyouxia.net",
         "9056(5)": "https://qsign.chahuyun.cn?key=miraibbs",
+        "9056(6)": "https://zyr15r-astralqsign.hf.space",
+        "9056(7)": "http://8.216.82.28",
         "memo": "签名除了(5)都要挂梯子。"
     }
 }
