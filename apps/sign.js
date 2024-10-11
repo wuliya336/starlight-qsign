@@ -117,21 +117,11 @@ export class sign extends plugin {
   }
 
   async fetchApiStatus(key, url) {
-    try {
       const start = Date.now();
       const response = await axios.get(url, { headers: { 'User-Agent': 'starlight-qsign' }, timeout: 5000 });
       const status = response.status === 200 ? '✅ 正常' : '❎ 异常';
       const delay = `${Date.now() - start}ms`;
       return `${key}: ${status} ${delay}\n${url}`;
-    } catch (error) {
-      if (error.response) {
-        console.error(`API ${key} 请求失败，状态码: ${error.response.status}`, error.response.data);
-      } else {
-        console.error(`API ${key} 请求失败，无响应: ${error.message}`);
-      }
-
-      return `${key}: ❎ 异常 (请求失败)\n${url}`;
-    }
   }
 
   async fetch_sign(urls, limit) {
