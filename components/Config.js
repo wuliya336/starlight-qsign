@@ -179,11 +179,9 @@ class Config {
 
   getCfg() {
     let config = this.getDefOrConfig('config')
-    let pushconfig = this.getDefOrConfig('push')
     let signconfig = this.getDefOrConfig('sign')
     return {
       ...config,
-      ...pushconfig,
       ...signconfig
     }
   }
