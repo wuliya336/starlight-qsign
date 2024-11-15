@@ -21,11 +21,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 使用 Prettier 格式化代码
-        uses: creyD/prettier_action@v3.1
+        uses: creyD/prettier_action@v4.3
         with:
-          prettier_version: "latest"
-          prettier_options: "--write ."
-          same_commit: true
+          prettier_version: "latest"      
+          prettier_options: "--write ."  
+          commit_message: "✨ GitHub Actions: 格式化代码" 
 
       - name: 设置状态检查
         id: status_check
