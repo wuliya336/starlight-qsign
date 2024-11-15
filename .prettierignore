@@ -1,2 +1,3 @@
 # 格式化忽略文件:
+.github/workflows/*
 
