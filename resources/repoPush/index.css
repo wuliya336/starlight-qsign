@@ -1,0 +1,90 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  text-align: left;
+  box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.info_box {
+  padding: 15px;
+}
+
+.commitInfo {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.commitInfo .value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.left-section,
+.commit-message,
+.date-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.right-section {
+  margin-left: auto;
+}
+
+.date-section {
+  justify-content: flex-start;
+}
+
+.left-date {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.commit-message {
+  font-style: italic;
+  color: #ccc;
+  word-wrap: break-word;
+}
+
+.date-section span {
+  color: #bbb;
+}

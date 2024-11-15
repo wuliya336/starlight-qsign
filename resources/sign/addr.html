@@ -1,0 +1,19 @@
+{{extend defaultLayout}} {{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/sign/addr.css" />
+{{/block}} {{block 'main'}}
+
+<div class="container">
+  <div class="title">星点签名查询签名地址</div>
+  <div class="info_box">
+    <div class="platformInfo">
+      <div>当前协议类型：</div>
+      <div>{{platformInfo}}</div>
+    </div>
+    <div class="signApiAddr">
+      <div>当前签名地址为：</div>
+      <div>{{signApiAddr}}</div>
+    </div>
+  </div>
+</div>
+
+{{/block}}

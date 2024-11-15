@@ -1,0 +1,9 @@
+# modules file
+node_modules/*
+pnpm-lock.yaml
+node_modules
+
+# Other files and folders
+.history
+config/config
+resources/Github

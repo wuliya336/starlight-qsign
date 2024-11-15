@@ -1,0 +1,2 @@
+git pull --no-rebase
+pnpm exec lint-staged

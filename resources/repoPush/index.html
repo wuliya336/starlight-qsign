@@ -1,0 +1,43 @@
+{{extend defaultLayout}} {{block 'css'}}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{_res_path}}/repoPush/index.css"
+/>
+{{/block}} {{block 'main'}}
+<div class="outer-container">
+  <div class="container">
+    <div class="title">星点签名仓库更新检测推送</div>
+    <div class="info_box">
+      <div class="commitInfo">
+        <div class="value">
+          <div class="left-section">
+            <img src="{{_res_path}}/repoPush/icons/github.svg" class="icon" />
+            <span>GitHub</span>
+            <img src="{{_res_path}}/repoPush/icons/branch.svg" class="icon" />
+            <span>main</span>
+          </div>
+          <div class="right-section">
+            <img src="{{_res_path}}/repoPush/icons/author.svg" class="icon" />
+            <span class="committer-name">{{commitInfo.committer}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="commitInfo">
+        <div class="value commit-message">
+          <img src="{{_res_path}}/repoPush/icons/commit.svg" class="icon" />
+          <span>{{commitInfo.message}}</span>
+        </div>
+      </div>
+      <div class="commitInfo">
+        <div class="value date-section">
+          <div class="left-date">
+            <img src="{{_res_path}}/repoPush/icons/date.svg" class="icon" />
+            <span>{{commitInfo.date}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/block}}
