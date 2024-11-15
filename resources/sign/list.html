@@ -1,10 +1,12 @@
-{{extend defaultLayout}} {{block 'css'}}
+{{extend defaultLayout}}
+{{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/sign/list.css" />
-{{/block}} {{block 'main'}}
+{{/block}}
+{{block 'main'}}
 <div class="container">
   <div class="title">星点签名公共签名列表</div>
 
-  {{each providers as providerData}}
+  {{each providers providerData}}
   <div class="info_box">
     <div class="provider">
       <strong>提供者：</strong> {{providerData.provider}}
@@ -14,7 +16,9 @@
     <div class="item">
       <div><strong>备注：</strong> {{providerData.memo}}</div>
     </div>
-    {{/if}} {{each providerData.items as item}}
+    {{/if}}
+
+    {{each providerData.items item}}
     <div class="item">
       <div><strong>名称：</strong> {{item.name}}</div>
       <div><strong>地址：</strong> {{item.url}}</div>

@@ -76,7 +76,7 @@ const SignUtil = {
         .map(([name, info]) => ({
           name,
           url: info.url,
-          key: info.key || "❎︎",
+          key: info.key || "❎",
           check: info.check ?? null,
         })),
       memo: items?.memo || null,
