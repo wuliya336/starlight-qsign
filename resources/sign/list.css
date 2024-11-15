@@ -1,8 +1,9 @@
 @font-face {
-  font-family: "NotoColorEmoji";
-  src: url("./font/NotoColorEmoji-Regular.ttf") format("truetype");
+  font-family: 'NotoColorEmoji';
+  src: url('./font/NotoColorEmoji-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+1F700-1F77F, U+1F780-1F7FF, U+1F800-1F8FF, U+1F900-1F9FF, U+1FA00-1FA6F, U+1FA70-1FAFF, U+2600-26FF, U+2700-27BF, U+2300-23FF;
 }
 
 body {
