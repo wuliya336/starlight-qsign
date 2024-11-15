@@ -8,16 +8,31 @@ async function repoCheck(filePath, pluginPath) {
     );
     const commit = res.data[0];
 
+    const authorName = commit.commit.author.name;
+    const authorEmail = commit.commit.author.email;
+    const committerName = commit.commit.committer.name;
+    const committerEmail = commit.commit.committer.email;
+    const commitMessage = commit.commit.message;
+
+    const isGitHubAction =
+      (committerName === "GitHub Action" || committerEmail === "actions@github.com") &&
+      commitMessage.includes("GitHub Actions");
+
+    if (isGitHubAction && authorName === "GitHub Actions") {
+      return;
+    }
+
     const UTC_Date = commit.commit.committer.date;
     const cnTime = new Date(UTC_Date).toLocaleString("zh-CN", {
       timeZone: "Asia/Shanghai",
       hour12: false,
     });
 
-    const commitMessageTitle = commit.commit.message.split("\n")[0];
+    const commitMessageTitle = commitMessage.split("\n")[0];
 
     const commitInfo = {
-      committer: commit.commit.committer.name,
+      author: authorName,
+      committer: committerName,
       date: cnTime,
       message: commitMessageTitle,
     };

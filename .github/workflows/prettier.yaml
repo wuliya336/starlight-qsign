@@ -25,4 +25,4 @@ jobs:
         with:
           prettier_version: "latest"      
           prettier_options: "--write ."    
-          commit_message: "✨ GitHub Actions: 格式化代码" 
+          commit_message: "✨ GitHub Action: 格式化代码" 
