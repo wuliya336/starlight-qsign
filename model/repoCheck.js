@@ -15,7 +15,8 @@ async function repoCheck(filePath, pluginPath) {
     const commitMessage = commit.commit.message;
 
     const isGitHubAction =
-      (committerName === "GitHub Action" || committerEmail === "actions@github.com") &&
+      (committerName === "GitHub Action" ||
+        committerEmail === "actions@github.com") &&
       commitMessage.includes("GitHub Actions");
 
     if (isGitHubAction && authorName === "GitHub Actions") {
