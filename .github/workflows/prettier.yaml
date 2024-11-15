@@ -31,17 +31,19 @@ jobs:
       - name: 使用 pnpm 安装依赖
         run: pnpm install
 
-      - name: 格式化代码
-        run: |
-          pnpm prettier --write .
+      - name: 使用 Prettier 格式化代码
+        uses: creyD/prettier_action@v3.1
+        with:
+          prettier_version: "latest"
+          prettier_args: "--write ."
 
       - name: 检查变更并提交
         run: |
           git diff --exit-code || (
-            git config --global user.name "${{ github.actor }}" &&
-            git config --global user.email "${{ github.actor }}@users.noreply.github.com" &&
+            git config --global user.name "github-actions[bot]" &&
+            git config --global user.email "github-actions[bot]@users.noreply.github.com" &&
             git add . &&
-            git commit --amend --no-edit &&
+            git commit -m "✨ Github Actions: 格式化代码" &&
             git push --force
           )
 
