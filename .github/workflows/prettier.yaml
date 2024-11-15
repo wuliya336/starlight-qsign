@@ -9,7 +9,8 @@ on:
       - dev
 
 permissions:
-  contents: write 
+  contents: write
+  workflows: write
 
 jobs:
   prettier:
