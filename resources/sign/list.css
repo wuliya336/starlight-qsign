@@ -1,13 +1,6 @@
 @font-face {
-  font-family: "Noto Sans SC";
-  src: url("../fonts/NotoSansSC-VariableFont.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Noto Color Emoji";
-  src: url("../fonts/NotoColorEmoji-Regular.ttf") format("truetype");
+  font-family: 'NotoColorEmoji';
+  src: url('./fonts/NotoColorEmoji-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,10 +9,10 @@ body {
   margin: 0;
   padding: 0;
   background: url("./img/bg.png") #000144 center center;
-  font-family: "Noto Color Emoji", "Noto Sans SC", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: sans-serif; 
 }
 
 .container {
@@ -65,6 +58,10 @@ body {
 
 .item div {
   margin-bottom: 5px;
+}
+
+.emoji {
+  font-family: 'NotoColorEmoji', sans-serif;
 }
 
 .update {

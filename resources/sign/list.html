@@ -19,9 +19,9 @@
       <div><strong>名称：</strong> {{item.name}}</div>
       <div><strong>地址：</strong> {{item.url}}</div>
       {{if item.check !== false}}
-      <div><strong>密钥：</strong> {{item.key}}</div>
-      <div><strong>状态：</strong> {{item.status}}</div>
-      <div><strong>延迟：</strong> {{item.delay}}</div>
+        <div><strong>密钥：</strong> <span class="emoji">{{item.key}}</span></div>
+        <div><strong>状态：</strong> <span class="emoji">{{item.status}}</span></div>
+        <div><strong>延迟：</strong> <span>{{item.delay}}</span></div>   
       {{/if}}
     </div>
     {{/each}}

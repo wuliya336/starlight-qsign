@@ -1,10 +1,10 @@
 {
   "name": "starlight-qsign",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": "wuliya",
   "type": "module",
   "dependencies": {
-    "axios": "*"
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "husky": "^9.1.6",
