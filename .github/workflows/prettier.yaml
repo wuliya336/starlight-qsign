@@ -27,8 +27,6 @@ jobs:
           prettier_version: "latest"      
           prettier_options: "--write ."  
           commit_message: "✨ GitHub Actions: 格式化代码" 
-        env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 设置状态检查
         id: status_check
