@@ -8,6 +8,9 @@ on:
     branches:
       - dev
 
+permissions:
+  contents: write 
+
 jobs:
   prettier:
     runs-on: ubuntu-latest
@@ -20,18 +23,9 @@ jobs:
       - name: 使用 Prettier 格式化代码
         uses: creyD/prettier_action@v3.1
         with:
-          prettier_version: "latest"    
-          prettier_options: "--write ."  
-
-      - name: 检查变更并提交
-        run: |
-          git diff --exit-code || (
-            git config --global user.name "github-actions[bot]" &&
-            git config --global user.email "github-actions[bot]@users.noreply.github.com" &&
-            git add . &&
-            git commit -m "✨ GitHub Actions: 格式化代码" &&
-            git push
-          )
+          prettier_version: "latest"
+          prettier_options: "--write ."
+          same_commit: true
 
       - name: 设置状态检查
         id: status_check
