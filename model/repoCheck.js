@@ -4,11 +4,12 @@ import { Data } from "../components/index.js";
 async function repoCheck(filePath, pluginPath) {
   try {
     const res = await axios.get(
-      "https://api.github.com/repos/wuliya336/starlight-qsign/commits"
+      "https://api.github.com/repos/wuliya336/starlight-qsign/commits",
     );
     const commit = res.data[0];
 
-    const { name: committerName, email: committerEmail } = commit.commit.committer;
+    const { name: committerName, email: committerEmail } =
+      commit.commit.committer;
     const { name: authorName } = commit.commit.author;
     const commitMessage = commit.commit.message;
 
