@@ -12,10 +12,18 @@ export class sign extends plugin {
           reg: /^(#)?(公共(api)?(签名)?(api)?|api(列表|签名)|45)$/i,
           fnc: "list",
         },
+
+
+
+        
       ],
     });
   }
   async list(e) {
+
+
+
+
     if (!Config.signlist) return false;
 
     let redisKey;
