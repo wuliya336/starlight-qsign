@@ -52,7 +52,7 @@ pnpm install --filter=starlight-qsign
 
 **<span style="color: orange;">`#星点签名查询签名地址`</span>**
 
-![帮助图](./resources/help/qsign.png)
+![签名地址图](./resources/help/signAddr.png)
 
 ## 贡献
 
