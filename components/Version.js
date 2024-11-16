@@ -60,7 +60,7 @@ try {
         if (!line.trim()) {
           return;
         }
-        if (/^[\*\-]/.test(line)) { 
+        if (/^[\*\-]/.test(line)) {
           lastLine = {
             title: getLine(line),
             logs: [],
@@ -72,7 +72,7 @@ try {
             };
           }
           temp.logs.push(lastLine);
-        } else if (/^\s{2,}[\*\-]/.test(line)) { 
+        } else if (/^\s{2,}[\*\-]/.test(line)) {
           lastLine.logs.push(getLine(line));
         }
       }
