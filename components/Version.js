@@ -1,7 +1,8 @@
 import fs from "fs";
 import _ from "lodash";
 import cfg from "../../../lib/config/config.js";
-const Plugin_Path = `${process.cwd()}/plugins/starlight-qsign`;
+import { Plugin_Path } from "./Path.js";
+
 const README_path = `${Plugin_Path}/README.md`;
 const CHANGELOG_path = `${Plugin_Path}/CHANGELOG.md`;
 
@@ -19,7 +20,7 @@ let currentVersion;
 let versionCount = 2;
 
 const getLine = function (line) {
-  line = line.replace(/(^\s*\*|\r)/g, "");
+  line = line.replace(/(^\s*[\*\-]|\r)/g, "");
   line = line.replace(/\s*`([^`]+`)/g, '<span class="cmd">$1');
   line = line.replace(/`\s*/g, "</span>");
   line = line.replace(/\s*\*\*([^*]+\*\*)/g, '<span class="strong">$1');
@@ -46,7 +47,6 @@ try {
         } else {
           changelogs.push(temp);
           if (/0\s*$/.test(v) && versionCount > 0) {
-            // versionCount = 0
             versionCount--;
           } else {
             versionCount--;
@@ -60,7 +60,7 @@ try {
         if (!line.trim()) {
           return;
         }
-        if (/^\*/.test(line)) {
+        if (/^[\*\-]/.test(line)) { 
           lastLine = {
             title: getLine(line),
             logs: [],
@@ -72,7 +72,7 @@ try {
             };
           }
           temp.logs.push(lastLine);
-        } else if (/^\s{2,}\*/.test(line)) {
+        } else if (/^\s{2,}[\*\-]/.test(line)) { 
           lastLine.logs.push(getLine(line));
         }
       }
@@ -80,7 +80,6 @@ try {
   }
 } catch (e) {
   logger.error(e);
-  // do nth
 }
 
 try {
