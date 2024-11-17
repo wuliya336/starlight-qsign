@@ -2,17 +2,17 @@ import fs from "fs";
 import _ from "lodash";
 import cfg from "../../../lib/config/config.js";
 import { Plugin_Path } from "./Path.js";
+import Data from "./Data.js";
 
 const README_path = `${Plugin_Path}/README.md`;
 const CHANGELOG_path = `${Plugin_Path}/CHANGELOG.md`;
 
 let yunzai_ver = "";
 try {
-  let packageJson = JSON.parse(
-    fs.readFileSync(`${process.cwd()}/package.json`, "utf8"),
-  );
-  yunzai_ver = packageJson.version;
-} catch (err) {}
+  let packageJson = Data.readJSON("package.json", "root");
+  yunzai_ver = packageJson.version || "";
+} catch (err) {
+}
 
 let logs = {};
 let changelogs = [];
@@ -79,7 +79,7 @@ try {
     });
   }
 } catch (e) {
-  logger.error(e);
+  console.error("读取 CHANGELOG 失败:", e);
 }
 
 try {
@@ -90,7 +90,9 @@ try {
       currentVersion = reg[1];
     }
   }
-} catch (err) {}
+} catch (err) {
+  console.error("读取 README.md 失败:", err);
+}
 
 let yunzaiName = cfg.package.name;
 if (yunzaiName == "miao-yunzai") {
@@ -102,6 +104,7 @@ if (yunzaiName == "miao-yunzai") {
 } else {
   yunzaiName = _.capitalize(yunzaiName);
 }
+
 let Version = {
   get ver() {
     return currentVersion;
@@ -116,4 +119,5 @@ let Version = {
     return changelogs;
   },
 };
+
 export default Version;

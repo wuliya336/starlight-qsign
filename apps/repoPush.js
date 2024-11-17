@@ -16,7 +16,7 @@ export class MonitorTask extends plugin {
         },
       ],
     });
-    if (Config.GithubPush) {
+    if (Config.other.GithubPush) {
       this.task = {
         name: "星点签名:仓库更新检测",
         cron: "0 0/5 * * * ? ",

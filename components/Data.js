@@ -1,12 +1,12 @@
 import lodash from "lodash";
 import fs from "fs";
+import { Path, Plugin_Path } from "./Path.js"; 
 
-const _path = process.cwd();
 const getRoot = (root = "") => {
   if (root === "root" || root === "yunzai") {
-    root = `${_path}/`;
+    root = `${Path}/`; 
   } else if (!root) {
-    root = `${_path}/plugins/starlight-qsign/`;
+    root = `${Plugin_Path}/`; 
   }
   return root;
 };
@@ -33,7 +33,7 @@ let Data = {
   },
 
   /*
-   * 读取json
+   * 读取JSON
    */
   readJSON(file = "", root = "") {
     root = getRoot(root);
@@ -41,7 +41,7 @@ let Data = {
       try {
         return JSON.parse(fs.readFileSync(`${root}/${file}`, "utf8"));
       } catch (e) {
-        console.log(e);
+        console.error(`读取 JSON 文件失败: ${file}`, e);
       }
     }
     return {};
@@ -57,7 +57,7 @@ let Data = {
     delete data._res;
     return fs.writeFileSync(
       `${root}/${file}`,
-      JSON.stringify(data, null, space),
+      JSON.stringify(data, null, space)
     );
   },
 
@@ -72,7 +72,7 @@ let Data = {
         const stats = fs.statSync(filePath);
         return stats.mtime.toLocaleDateString("zh-CN");
       } catch (e) {
-        logger.error("获取文件修改时间失败:", e);
+        console.error("获取文件修改时间失败:", e);
       }
     }
     return "未知";
@@ -85,7 +85,7 @@ let Data = {
         return JSON.parse(txt);
       }
     } catch (e) {
-      console.log(e);
+      console.error("获取缓存 JSON 失败:", e);
     }
     return {};
   },
@@ -104,7 +104,7 @@ let Data = {
         let data = await import(`file://${root}/${file}?t=${new Date() * 1}`);
         return data || {};
       } catch (e) {
-        console.log(e);
+        console.error("模块导入失败:", e);
       }
     }
     return {};
@@ -125,7 +125,7 @@ let Data = {
     if (diyCfg.isSys) {
       console.error(`starlight-qsign: config/${key}.js无效，已忽略`);
       console.error(
-        `如需配置请**config/${key}_default.js为config/${key}.js，请勿**config/system下的系统文件`,
+        `如需配置请**config/${key}_default.js为config/${key}.js，请勿**config/system下的系统文件`
       );
       diyCfg = {};
     }
@@ -159,7 +159,7 @@ let Data = {
       if (cfg.keyPrefix) {
         keyRet = cfg.keyPrefix + keyRet;
       }
-      // 通过Data.getVal获取数据
+      // 通过 Data.getVal 获取数据
       ret[keyRet] = Data.getVal(target, keyFrom, defaultData[keyTo], cfg);
     });
     return ret;
@@ -174,12 +174,12 @@ let Data = {
     const ret = []; // 存储所有的异步任务
     const executing = []; // 存储正在执行的异步任务
     for (const item of array) {
-      // 调用iteratorFn函数创建异步任务
+      // 调用 iteratorFn 函数创建异步任务
       const p = Promise.resolve().then(() => iteratorFn(item, array));
       // 保存新的异步任务
       ret.push(p);
 
-      // 当poolLimit值小于或等于总任务个数时，进行并发控制
+      // 当 poolLimit 值小于或等于总任务个数时，进行并发控制
       if (poolLimit <= array.length) {
         // 当任务完成后，从正在执行的任务数组中移除已完成的任务
         const e = p.then(() => executing.splice(executing.indexOf(e), 1));

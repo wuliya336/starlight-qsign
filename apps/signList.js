@@ -16,7 +16,7 @@ export class sign extends plugin {
     });
   }
   async list(e) {
-    if (!Config.signlist) return false;
+    if (!Config.sign.list) return false;
 
     let redisKey;
     if (e.isGroup) {

@@ -1,5 +1,5 @@
 # 是否开启签名列表
-signlist: true
+list: true
 
 # 是否开启签名列表图片渲染
 render: false

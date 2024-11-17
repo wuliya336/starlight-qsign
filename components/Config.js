@@ -45,27 +45,13 @@ class Config {
     return cfg.master;
   }
 
-  /** 渲染精度 */
-  get renderScale() {
-    return this.getDefOrConfig("config").renderScale;
+  /** 默认设置 */
+  get sign() {
+    return this.getConfig("sign");
   }
-  /** 仓库推送 */
-  get GitHubPush() {
-    return this.getDefOrConfig("config").GitHubPush;
-  }
-
-  /* 公共签名列表 */
-  get signlist() {
-    return this.getDefOrConfig("sign").signlist;
-  }
-
-  /* 公共签名列表图片渲染 */
-  get render() {
-    return this.getDefOrConfig("sign").render;
-  }
-  /* 本地与远程的切换 */
-  get remote() {
-    return this.getDefOrConfig("sign").remote;
+  /** 其他设置 */
+  get other(){
+    return this.getConfig("other");
   }
 
   /** 默认配置和用户配置 */
@@ -181,11 +167,11 @@ class Config {
   }
 
   getCfg() {
-    let config = this.getDefOrConfig("config");
-    let signconfig = this.getDefOrConfig("sign");
+    let other = this.getDefOrConfig("other");
+    let sign = this.getDefOrConfig("sign");
     return {
-      ...config,
-      ...signconfig,
+      ...other,
+      ...sign,
     };
   }
 

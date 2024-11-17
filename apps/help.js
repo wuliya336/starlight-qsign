@@ -21,11 +21,6 @@ export class help extends plugin {
         },
       ],
     });
-    this.button = segment.button([
-      { text: "设置", callback: `#星点签名设置` },
-      { text: "签名列表", callback: `45` },
-      { text: "签名统计", callback: `#签名统计` },
-    ]);
   }
 
   async help(e) {

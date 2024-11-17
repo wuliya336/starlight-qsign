@@ -1,4 +1,4 @@
-# Github仓库定时推送
+# Github仓库定时检测推送
 GithubPush: true
 
 # 图片渲染精度

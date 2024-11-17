@@ -25,7 +25,7 @@ export const cfgSchema = {
       },
     },
   },
-  config: {
+  other: {
     title: "其他设置",
     cfg: {
       GithubPush: {
@@ -33,7 +33,7 @@ export const cfgSchema = {
         key: "仓库更新检测推送",
         def: false,
         desc: "是否开启仓库更新检测推送，开启后将定时检测仓库更新并推送",
-        fileName: "config",
+        fileName: "other",
       },
       renderScale: {
         title: "渲染精度",
@@ -42,7 +42,7 @@ export const cfgSchema = {
         def: 100,
         input: (n) => Math.min(200, Math.max(50, n * 1 || 100)),
         desc: "可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度",
-        fileName: "config",
+        fileName: "other",
       },
     },
   },
