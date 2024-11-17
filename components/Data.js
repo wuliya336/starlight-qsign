@@ -62,7 +62,7 @@ let Data = {
   },
 
   /*
-   * 获取文件的最后修改时间，格式为 "YYYY-MM-DD"
+   * 获取文件的更新时间时间
    */
   getFileModifiedTime(file = "", root = "") {
     root = getRoot(root);
@@ -70,10 +70,9 @@ let Data = {
     if (fs.existsSync(filePath)) {
       try {
         const stats = fs.statSync(filePath);
-        // 将日期格式化为中国地区的日期格式 "YYYY-MM-DD"
         return stats.mtime.toLocaleDateString("zh-CN");
       } catch (e) {
-        console.log("获取文件修改时间失败:", e);
+        logger.error("获取文件修改时间失败:", e);
       }
     }
     return "未知";

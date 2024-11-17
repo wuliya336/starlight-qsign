@@ -122,7 +122,7 @@ const SignUtil = {
     return "未知";
   },
 
-  initializeMessages(msg) {
+  initMsg(msg) {
     this.addMessage(msg, "公共签名API列表");
     this.addMessage(
       msg,

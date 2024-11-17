@@ -1,6 +1,6 @@
 export const cfgSchema = {
-  starlight_qsign: {
-    title: "功能设置",
+  sign: {
+    title: "签名设置",
     cfg: {
       signlist: {
         title: "签名列表",
@@ -23,6 +23,11 @@ export const cfgSchema = {
         desc: "是否开启远程功能，开启后将从服务器获取数据",
         fileName: "sign",
       },
+    },
+  },
+  config: {
+    title: "其他设置",
+    cfg: {
       GithubPush: {
         title: "仓库更新检测推送",
         key: "仓库更新检测推送",
@@ -39,6 +44,6 @@ export const cfgSchema = {
         desc: "可选值50~200，建议100。设置高精度会提高图片的精细度，但因图片较大可能会影响渲染与发送速度",
         fileName: "config",
       },
-    },
-  },
+    }
+  }
 };

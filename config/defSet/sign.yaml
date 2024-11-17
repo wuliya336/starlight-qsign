@@ -2,7 +2,7 @@
 signlist: true
 
 # 是否开启签名列表图片渲染
-signlistRender: false
+render: false
 
 # 是否开启从远程获取签名数据
 remote: true

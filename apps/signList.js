@@ -37,7 +37,7 @@ export class sign extends plugin {
           { withParams: false },
         );
         if (!success || !data) {
-          console.error("获取云端列表失败，返回数据:", data);
+          logger.error("获取云端列表失败");
           throw new Error("云端列表获取失败");
         }
         providers = SignUtil.processProviderData(data);
@@ -52,7 +52,8 @@ export class sign extends plugin {
       }
 
       const outputs = [];
-      SignUtil.initializeMessages(outputs);
+      const initMsg = [];
+      SignUtil.initMsg(initMsg);
 
       for (const provider of providers) {
         const providerOutput = [];
@@ -110,6 +111,7 @@ export class sign extends plugin {
           {
             providers,
             updateTime,
+            initMsg,
           },
           { e, scale: 1.2 },
         );

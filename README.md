@@ -54,12 +54,7 @@ pnpm install --filter=starlight-qsign
 
 ![签名地址图](./resources/help/signAddr.png)
 
-## 贡献
-
-**如果你也想参与贡献并提供自己所搭建的签名服务,请提交并pr<br>**
-**如果你有多余的服务器想提供也可联系我**
-
-### 如何提交
+### 如何修改签名地址信息
 
 **一. 修改`插件根目录`signlist.json`文件,请参考json数组<br>**
 
@@ -92,7 +87,9 @@ pnpm install --filter=starlight-qsign
 **二. 如需同步到远程请提交issue即可<br>**
 [issue](https://github.com/wuliya336/starlight-qsign/issues/1)
 
-**三. 如需贡献请拉取`dev`分支并提交PR**
+## 贡献
+
+**如需贡献请拉取`dev`分支并提交PR**
 
 ## 更新计划
 

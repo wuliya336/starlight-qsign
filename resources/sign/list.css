@@ -67,6 +67,21 @@ body {
   font-family: "NotoColorEmoji", sans-serif;
 }
 
+.init-messages {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(35, 38, 57, 0.8);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.init-messages .message {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
 .update {
   font-size: 18px;
   color: #000;
