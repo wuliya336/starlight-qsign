@@ -50,7 +50,7 @@ class Config {
     return this.getConfig("sign");
   }
   /** 其他设置 */
-  get other(){
+  get other() {
     return this.getConfig("other");
   }
 

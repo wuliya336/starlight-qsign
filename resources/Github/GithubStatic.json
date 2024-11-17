@@ -1,6 +1,6 @@
 {
-	"author": "wuliya",
-	"committer": "wuliya",
-	"date": "2024/11/13 20:36:49",
-	"message": "ci: 添加代码格式化和提交检查工作流"
+  "author": "wuliya",
+  "committer": "wuliya",
+  "date": "2024/11/13 20:36:49",
+  "message": "ci: 添加代码格式化和提交检查工作流"
 }

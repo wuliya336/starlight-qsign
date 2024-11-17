@@ -11,8 +11,7 @@ let yunzai_ver = "";
 try {
   let packageJson = Data.readJSON("package.json", "root");
   yunzai_ver = packageJson.version || "";
-} catch (err) {
-}
+} catch (err) {}
 
 let logs = {};
 let changelogs = [];

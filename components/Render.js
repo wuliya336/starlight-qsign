@@ -11,14 +11,12 @@ export default async function (path, params, cfg) {
     retType: cfg.retMsgId ? "msgId" : "default",
     beforeRender({ data }) {
       let resPath = data.pluResPath;
-      const layoutPath =
-        `${Plugin_Path}/resources/common/layout/`;
+      const layoutPath = `${Plugin_Path}/resources/common/layout/`;
       return {
         ...data,
         _res_path: resPath,
         _layout_path: layoutPath,
-        _tpl_path:
-          `${Plugin_Path}/resources/common/tpl/`,
+        _tpl_path: `${Plugin_Path}/resources/common/tpl/`,
         defaultLayout: layoutPath + "default.html",
         elemLayout: layoutPath + "elem.html",
         sys: {

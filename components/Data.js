@@ -1,12 +1,12 @@
 import lodash from "lodash";
 import fs from "fs";
-import { Path, Plugin_Path } from "./Path.js"; 
+import { Path, Plugin_Path } from "./Path.js";
 
 const getRoot = (root = "") => {
   if (root === "root" || root === "yunzai") {
-    root = `${Path}/`; 
+    root = `${Path}/`;
   } else if (!root) {
-    root = `${Plugin_Path}/`; 
+    root = `${Plugin_Path}/`;
   }
   return root;
 };
@@ -57,7 +57,7 @@ let Data = {
     delete data._res;
     return fs.writeFileSync(
       `${root}/${file}`,
-      JSON.stringify(data, null, space)
+      JSON.stringify(data, null, space),
     );
   },
 
@@ -125,7 +125,7 @@ let Data = {
     if (diyCfg.isSys) {
       console.error(`starlight-qsign: config/${key}.js无效，已忽略`);
       console.error(
-        `如需配置请**config/${key}_default.js为config/${key}.js，请勿**config/system下的系统文件`
+        `如需配置请**config/${key}_default.js为config/${key}.js，请勿**config/system下的系统文件`,
       );
       diyCfg = {};
     }
