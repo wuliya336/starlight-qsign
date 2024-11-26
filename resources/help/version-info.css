@@ -12,11 +12,13 @@ body {
   width: 600px;
 }
 .container {
+  background: url("../common/bg/bg-anemo.jpg") top left repeat;
+  background-size: 100% auto;
   width: 600px;
   padding: 10px 0 10px 0;
-  background-size: 100% 100%;
 }
 .log-cont {
+  background: url("../common/bg/bg-anemo.jpg") top left repeat;
   background-size: cover;
   margin: 5px 15px 5px 10px;
   border-radius: 10px;
@@ -64,5 +66,20 @@ body {
   transform-origin: 0 0;
   color: #d3bc8e;
   white-space: nowrap;
+}
+.dev-cont {
+  background: none;
+}
+.dev-cont .cont-title {
+  background: rgba(0, 0, 0, 0.7);
+}
+.dev-cont .cont-body {
+  background: rgba(0, 0, 0, 0.5);
+}
+.dev-cont .cont-body.dev-info {
+  background: rgba(0, 0, 0, 0.2);
+}
+.dev-cont .strong {
+  font-size: 15px;
 }
 /*# sourceMappingURL=version-info.css.map */

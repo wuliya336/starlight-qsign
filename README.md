@@ -1,94 +1,109 @@
 # <center>starlight-qsign</center>
 
-![星点签名](https://count.moeyy.cn/get/@starlight-qsign?theme=moebooru)<br>
-[![Github](https://img.shields.io/badge/Github-星点签名-black?style=flat-square&logo=github)](https://github.com/wuliya336/starlight-qsign)[![云崽bot](https://img.shields.io/badge/云崽-v3.0.0-black?style=flat-square&logo=dependabot)](https://gitee.com/Le-niao/Yunzai-Bot)<br>
+![星点签名](https://count.kjchmc.cn/get/@starlight-qsign?theme=moebooru)<br>
+[![Github](https://img.shields.io/badge/Github-星点签名-black?style=flat-square&logo=github)](https://github.com/wuliya336/starlight-qsign)[![云崽bot](https://img.shields.io/badge/云崽-v3.0.0-black?style=flat-square&logo=dependabot)](https://gitee.com/Le-niao/Yunzai-Bot)[![Q群](https://img.shields.io/badge/group-272040396-blue)](https://gitee.com/Le-niao/Yunzai-Bot)<br>
 `starlight-qsign`是一个`Yunzai-Bot`的扩展插件，提供公共签名列表，45解决方案功能<br>
 
 ---
 
-<mark>本插件，已跑路，仅保证功能可用<mark>
+<mark>本插件，已跑路，仅保证功能可用</mark><br>
+如有问题请提交`issue`<br>
 
 ## 安装与更新
 
-### 使用Git安装（推荐）
+### `Yunzai-Bot`
 
-#### **使用Github**
+#### 使用`Github`
 
-```
+```bash
 git clone --depth=1 https://github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
 ```
 
-```
-pnpm install --filter=starlight-qsign
+#### 使用`Github`镜像
+
+```bash
+git clone --depth=1 https://gh.wuliya336.top/github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
 ```
 
-#### **使用GitHub镜像**
+### `手工安装`
 
-```
-git clone --depth=1 https://gh.wuliya.icu/github.com/wuliya336/starlight-qsign ./plugins/starlight-qsign/
-```
-
-```
-pnpm install --filter=starlight-qsign
-```
-
-### 手工下载安装（不推荐）
-
-**手工下载安装包，解压后将`starlight-qsign-master`更名为`starlight-qsign`，然后放置在Yunzai的plugins目录内<br>**
+**手工下载安装包，解压后将`starlight-qsign-master`更名为`starlight-qsign`，然后放置在`Yunzai`的`plugins`目录内<br>**
 
 **虽然此方式能够使用，不利于后续升级，故不推荐使用<br>**
 
----
+### `Karin`
+
+### 使用`Github`
+
+```bash
+git clone --depth=1 https://github.com/wuliya336/starlight-qsign ./plugins/karin-plugin-starlight-qsign/
+```
+
+### 使用`Github`镜像
+
+```bash
+git clone --depth=1 https://gh.wuliya336.top/github.com/wuliya336/starlight-qsign ./plugins/karin-plugin-starlight-qsign/
+```
+
+### `手工安装`
+
+**手工下载安装包，解压后将`starlight-qsign-master`更名为`karin-plugin-starlight-qsign`，然后放置在`Karin`的`plugins`目录内<br>**
+
+**虽然此方式能够使用，不利于后续升级，故不推荐使用<br>**
+
+## 安装依赖
+```bash
+pnpm install --filter=starlight-qsign
+```
 
 ## 使用帮助
+其他内容请查看[官方文档](https://docs.wuliya.cn)
 
 ## 本插件支持本地与远程切换
 
 **对机器人发送`#星点签名帮助`可获取本插件帮助<br>**
-![帮助图](./resources/help/help.jpg)<br>
-**对机器人发送<span style="color: red;">`#API列表`或`45`</span>即可获取本插件所收集的公共签名列表<br>**
-**如需更新发送<span style="color: orange;">`#星点签名更新`</span>,如需设置发送<span style="color: orange;">`#星点签名设置`</span>**
-![设置图](./resources/admin/admin.jpg)<br>
-**新增API查看功能**
 
-**<span style="color: orange;">`#星点签名查询签名地址`</span>**
+### 如何修改签名地址信息
 
-![帮助图](./resources/help/qsign.png)
-
-## 贡献
-
-**如果你也想参与贡献并提供自己所搭建的签名服务,请提交并pr<br>**
-**如果你有多余的服务器想提供也可联系我**
-
-### 如何提交
-
-**一. 修改`api`分支下的`signlist.json`文件,请参考json数组并提交<br>**
+**一. 修改`插件根目录`signlist.json`文件,请参考json数组<br>**
 
 ```json
-"name": [
-  {
-    "txlib": "signurl",
-    "memo": "info"
+{
+  "author": {
+    "name": {
+      "url": "signurl",
+      "key": "key"
+      "check": false
+    },
+    "memo": "示例"
   }
-]
+}
 ```
 
 #### 参数说明
 
 ##### 本插件支持本地与远程
 
-| 参数  | 说明       | 备注                       |
-| ----- | ---------- | -------------------------- |
-| name  | 提供者名称 | 如: example                |
-| txlib | 签名版本   | 如: 9.0.60                 |
-| sign  | 签名地址   | 如: http://example.com     |
-| memo  | 备注       | 无                         |
-| date  | 提交日期   | 如: 2024-09-06, 仅本地模式 |
+| 参数    | 说明         | 备注                   |
+| ------- | ------------ | ---------------------- |
+| author  | 提供者名称   | 如: example            |
+| name    | 签名版本     | 如: 9.0.60             |
+| key     | 签名密钥     | 如: 114514 ,没有可不填 |
+| signurl | 签名地址     | 如: http://example.com |
+| check   | 是否跳过检测 | 如: true               |
+| memo    | 备注         | 无 ,不需要可不填       |
+
+**二. 如需同步到远程请提交issue即可<br>**
+[issue](https://github.com/wuliya336/starlight-qsign/issues/1)
+
+## 贡献
+
+**如需贡献请拉取`dev`分支并提交PR**
 
 ## 更新计划
 
 - [x] 获取当前实例签名地址
-- [ ] ~~自动切换可用签名~~
+- [x] 检测签名异常自动切换签名
 - [x] 备注信息
 
 # 资源
