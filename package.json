@@ -1,20 +1,9 @@
 {
   "name": "starlight-qsign",
-  "version": "2.1.1",
+  "version": "2.3.2",
   "author": "wuliya",
   "type": "module",
   "dependencies": {
-    "axios": "*"
-  },
-  "devDependencies": {
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "prettier": "3.3.3"
-  },
-  "scripts": {
-    "pre": "pnpm exec prettier . --write"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "axios": "^1.7.7"
   }
 }

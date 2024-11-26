@@ -1,4 +1,11 @@
 # 是否开启签名列表
-signlist: true
-# 使用远程
+list: true
+
+# 是否开启签名列表图片渲染
+render: false
+
+# 是否开启从远程获取签名数据
 remote: true
+
+# 是否开启自动切换签名
+autoSwitch: true

@@ -1,10 +1,10 @@
 import lodash from "lodash";
 import fs from "fs";
-import { Data } from "../../components/index.js";
+import { Data,Version } from "../../components/index.js";
 
 let Theme = {
   async getThemeCfg(theme, exclude) {
-    let dirPath = "./plugins/starlight-qsign/resources/help/theme/";
+    let dirPath = `${Version.Plugin_Path}/resources/help/theme/`;
     let ret = [];
     let names = [];
     let dirs = fs.readdirSync(dirPath);

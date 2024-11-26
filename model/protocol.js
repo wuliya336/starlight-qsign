@@ -1,13 +1,13 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+/* eslint-disable no-unused-vars */
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
-function getPlatformInfo(e) {
-  const { apk, version } = Bot[e.self_id];
-  return version ? `${version.name}` : `ICQQ`;
+async function getSignInfo (e) {
+  const { version, sig } = Bot[e.self_id]
+  const platformInfo = version ? `${version.name}` : 'ICQQ'
+  const signApiAddr = sig?.sign_api_addr || '未配置签名地址'
+
+  return { platformInfo, signApiAddr }
 }
 
-function getSignApiAddr() {
-  return Bot.sig?.sign_api_addr || "未配置签名地址";
-}
-
-export { getPlatformInfo, getSignApiAddr };
+export default getSignInfo

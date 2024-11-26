@@ -1,0 +1,41 @@
+{{extend defaultLayout}} {{block 'css'}}
+<link rel="stylesheet" type="text/css" href="{{_res_path}}/sign/list.css" />
+{{/block}} {{block 'main'}}
+<div class="container">
+  <div class="title">星点签名公共签名列表</div>
+  <div class="init-messages">
+    {{each initMsg message}}
+    <div class="message">{{message.message}}</div>
+    {{/each}}
+  </div>
+  {{each providers providerData}}
+  <div class="info_box">
+    <div class="provider">
+      <strong>提供者：</strong> {{providerData.provider}}
+    </div>
+
+    {{if providerData.memo}}
+    <div class="item">
+      <div><strong>备注：</strong> {{providerData.memo}}</div>
+    </div>
+    {{/if}} {{each providerData.items item}}
+    <div class="item">
+      <div><strong>名称：</strong> {{item.name}}</div>
+      <div><strong>地址：</strong> {{item.url}}</div>
+      {{if item.check !== false}}
+      <div><strong>密钥：</strong> <span class="emoji">{{item.key}}</span></div>
+      <div>
+        <strong>状态：</strong> <span class="emoji">{{item.status}}</span>
+      </div>
+      <div>
+        <strong>延迟：</strong> <span class="emoji">{{item.delay}}</span>
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+  {{/each}}
+
+  <div class="update">数据更新于：{{updateTime}}</div>
+</div>
+{{/block}}
