@@ -33,7 +33,7 @@ class Config {
     }
   }
 
-  /** 默认设置 */
+  /** 签名设置 */
   get sign () {
     return this.getDefOrConfig('sign')
   }

@@ -37,7 +37,7 @@ export class sign extends plugin {
 
     try {
       const { providers, updateTime } = await SignUtil.getSignData(
-        Config.remote
+        Config.sign.remote
       )
       if (!providers) {
         throw new Error('获取公共签名API信息失败')
