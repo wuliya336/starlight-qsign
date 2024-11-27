@@ -138,6 +138,9 @@ export class sign extends plugin {
       return true
     } catch (error) {
       console.error(error)
+      if (e.isGroup) {
+        await redis.del(redisKey)
+      }
       await e.reply('获取公共签名API信息失败')
       return false
     }
