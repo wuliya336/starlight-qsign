@@ -88,16 +88,16 @@ const SignUtil = {
   /**
    * 群组冷却
    */
-  async checkRedisStatus (redis, redisKey, e) {
-    const isTriggered = !!(await redis.get(redisKey))
-    await e.reply('你已执行过该命令请勿重新触发', true)
+  async checkRedisStatus(redis, redisKey, e) {
+    const isTriggered = !!(await redis.get(redisKey));
     if (isTriggered) {
-      await e.reply('你已执行过该命令请勿重新触发', true)
-      return false
+      await e.reply("你已执行过该命令，请稍后再试", true);
+      return false;
     }
-    await redis.set(redisKey, '1')
-    await redis.expire(redisKey, 20)
-    return true
+
+    await redis.set(redisKey, "1");
+    await redis.expire(redisKey, 20);
+    return true;
   },
 
   /**
