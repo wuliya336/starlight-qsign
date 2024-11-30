@@ -3,8 +3,12 @@ import axios from 'axios'
 import { Data, Version } from '../components/index.js'
 import fs from 'fs'
 import path from 'path'
+import logger from '../components/Base/logger.js'
 
 const SignUtil = {
+  /**
+   * 添加消息到消息队列
+   */
   addMessage (msgArray, content, self_id) {
     msgArray.push({
       message: content,
@@ -43,7 +47,6 @@ const SignUtil = {
 
       requestUrl = `${url}?${queryParams}`
     }
-
     try {
       const response = await axios.get(requestUrl, {
         timeout: 5000,
@@ -67,9 +70,10 @@ const SignUtil = {
       return true
     }
   },
+
   /**
- * 解析签名数据
- * */
+   * 解析签名数据
+   */
   processProviderData (data) {
     return Object.entries(data).map(([provider, items]) => ({
       provider,
@@ -77,7 +81,7 @@ const SignUtil = {
         .filter(([name]) => name !== 'memo')
         .map(([name, info]) => ({
           name,
-          url: info.url,
+          url: `${info.url.endsWith('/') ? info.url.slice(0, -1) : info.url}/sign`,
           key: info.key || '❎',
           check: info.check ?? null
         })),
@@ -88,16 +92,16 @@ const SignUtil = {
   /**
    * 群组冷却
    */
-  async checkRedisStatus(redis, redisKey, e) {
-    const isTriggered = !!(await redis.get(redisKey));
+  async checkRedisStatus (redis, redisKey, e) {
+    const isTriggered = !!(await redis.get(redisKey))
     if (isTriggered) {
-      await e.reply("你已执行过该命令，请稍后再试", true);
-      return false;
+      await e.reply('你已执行过该命令，请稍后再试', true)
+      return false
     }
 
-    await redis.set(redisKey, "1");
-    await redis.expire(redisKey, 20);
-    return true;
+    await redis.set(redisKey, '1')
+    await redis.expire(redisKey, 20)
+    return true
   },
 
   /**
@@ -133,9 +137,10 @@ const SignUtil = {
 
     return '未知'
   },
+
   /**
- * 初始化消息
- * */
+   * 初始化消息
+   */
   initMsg (msg, self_id) {
     this.addMessage(msg, '公共签名API列表', self_id)
     this.addMessage(
@@ -150,26 +155,75 @@ const SignUtil = {
     )
   },
 
+  /**
+   * 检查签名状态
+   */
+  async checkSignStatus (item, provider = '未知') {
+    if (item.check === false) {
+      console.debug(`跳过 ${provider} 的检测`)
+      item.status = '❎跳过'
+      item.delay = '❌跳过'
+      return item
+    }
+
+    try {
+      const startTime = Date.now()
+
+      const { success } = await this.fetchRemoteData(item.url, {
+        key: item.key || '',
+        withParams: true
+      })
+      const endTime = Date.now()
+      const delay = endTime - startTime
+
+      item.status = success ? '✅正常' : '❎异常'
+      item.delay = success ? `${delay}ms` : '❌超时'
+    } catch (error) {
+      logger.error('签名状态异常:', error)
+      item.status = '❎异常'
+      item.delay = '❌超时'
+    }
+
+    return item
+  },
+
+  /**
+   * 生成签名项的消息内容
+   */
+  generateItemMessage (item) {
+    if (item.status === '❎跳过') {
+      return `名称: ${item.name}\n地址: ${item.url}`
+    }
+
+    return `名称: ${item.name}\n地址: ${item.url}\n密钥: ${item.key}\n状态: ${item.status}\n延迟: ${item.delay}`
+  },
+
+  /**
+   * 处理签名数据
+   */
   async processSignData (data, isRemote, response) {
     const providerData = this.processProviderData(data)
-    const signCheckPromises = providerData.map((provider) =>
-      Promise.all(
-        provider.items.map(async (item) => {
-          return this.checkSignStatus(item)
-        })
-      ).then((items) => {
-        provider.items = items
-        return provider
+
+    const updatedProviders = await Promise.all(
+      providerData.map(async (provider) => {
+        return {
+          ...provider,
+          items: await Promise.all(
+            provider.items.map((item) => this.checkSignStatus(item, provider.provider))
+          )
+        }
       })
     )
 
-    const updatedProviders = await Promise.all(signCheckPromises)
     return {
       providers: updatedProviders,
       updateTime: this.getUpdateTime(isRemote, response)
     }
   },
 
+  /**
+   * 获取签名数据
+   */
   async getSignData (isRemote = true) {
     try {
       const { data, headers, success } = isRemote
@@ -185,29 +239,9 @@ const SignUtil = {
 
       return await this.processSignData(data, isRemote, isRemote ? { headers } : null)
     } catch (error) {
+      console.error('获取云端签名数据失败:', error)
       return false
     }
-  },
-
-  async checkSignStatus (item) {
-    try {
-      const startTime = Date.now()
-      const { success } = await this.fetchRemoteData(item.url, {
-        key: item.key || '',
-        withParams: true
-      })
-      const endTime = Date.now()
-      const delay = endTime - startTime
-
-      item.status = success ? '✅正常' : '❎异常'
-      item.delay = success ? `${delay}ms` : '❌超时'
-    } catch (error) {
-      console.error('Check sign status failed:', error)
-      item.status = '❎异常'
-      item.delay = '❌超时'
-    }
-
-    return item
   }
 }
 
