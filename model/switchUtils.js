@@ -48,14 +48,7 @@ const SwitchUtils = {
       }
 
       const allItems = signData.providers.flatMap((provider) => provider.items)
-
-      const validatedItems = []
-      for (const item of allItems) {
-        const checkedItem = await SignUtil.checkSignStatus(item)
-        if (checkedItem.status === '✅正常') {
-          validatedItems.push(checkedItem)
-        }
-      }
+      const validatedItems = allItems.filter((item) => item.status === '✅正常')
 
       if (validatedItems.length === 0) {
         return null

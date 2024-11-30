@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 import YAML from 'yaml'
 import chokidar from 'chokidar'
 import fs from 'node:fs'
@@ -131,7 +131,7 @@ class Config {
             ) {
               target.type = 'open'
             }
-            // eslint-disable-next-line no-undef
+             
             await modifyWebSocket(target)
           }
         }

@@ -1,4 +1,5 @@
 import { spawn } from 'child_process'
+import { logger, redis } from '../components/Base/index.js'
 function execCommand (command, args = []) {
   return new Promise((resolve, reject) => {
     const process = spawn(command, args, { stdio: 'inherit' })
@@ -20,7 +21,7 @@ const simpleRestart = async () => {
     process.exit()
   } catch (error) {
     Bot.makeLog('error', ['重启错误', { error: error.message }])
-    console.error('重启过程中出现错误:', error)
+    logger.error('重启过程中出现错误:', error)
   }
 }
 
