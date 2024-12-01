@@ -11,25 +11,21 @@
     "globals": "^15.12.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.2.10",
-    "neostandard": "^0.11.9",
-    "prettier": "^3.4.1"
+    "neostandard": "^0.11.9"
   },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "lint-staged": {
-    "app/**/*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "components/**/*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "model/**/*.js": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  }
+  "app/**/*.js": [
+    "eslint --fix"
+  ],
+  "components/**/*.js": [
+    "eslint --fix"
+  ],
+  "model/**/*.js": [
+    "eslint --fix"
+  ]
+}
 }
