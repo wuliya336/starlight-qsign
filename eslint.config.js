@@ -7,7 +7,7 @@ export default [{
       ...globals.node
     },
   },
-  files: ['app/**/*.js', 'components/**/*.js', 'model/**/*.js'],
+  files: ['app/**/*.js', 'components/**/*.js', 'models/**/*.js'],
   rules: {
     ...neostandard.rules,
     // 禁用驼峰命名命名规则，允许使用下划线命名法。
