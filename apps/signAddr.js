@@ -1,4 +1,4 @@
-import { getSignInfo } from '../model/index.js'
+import { getSignInfo } from '../models/index.js'
 import { Render, Version } from '../components/index.js'
 import { plugin } from '../components/Base/index.js'
 

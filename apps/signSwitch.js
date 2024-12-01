@@ -1,5 +1,5 @@
 import { Version, Config } from '../components/index.js'
-import { SwitchUtils, WatchLog } from '../model/index.js'
+import { SwitchUtils, WatchLog } from '../models/index.js'
 import { plugin } from '../components/Base/index.js'
 
 export class SignManager extends plugin {
