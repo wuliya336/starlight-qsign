@@ -1,72 +1,44 @@
-import lodash from "lodash";
+import { Data, Version } from "../../components/index.js";
 import fs from "fs";
-import { Data,Version } from "../../components/index.js";
 
 let Theme = {
-  async getThemeCfg(theme, exclude) {
+  async getThemeCfg() {
     let dirPath = `${Version.Plugin_Path}/resources/help/theme/`;
-    let ret = [];
-    let names = [];
-    let dirs = fs.readdirSync(dirPath);
-
-    dirs.forEach((dir) => {
-      if (fs.existsSync(`${dirPath}${dir}/main.png`)) {
-        names.push(dir);
-      }
-    });
-
-    if (lodash.isArray(theme)) {
-      ret = lodash.intersection(theme, names);
-    } else if (theme === "all") {
-      ret = names;
-    }
-
-    if (exclude && lodash.isArray(exclude)) {
-      ret = lodash.difference(ret, exclude);
-    }
-
-    if (ret.length === 0) {
-      ret = ["default"];
-    }
-
-    let name = lodash.sample(ret);
     let resPath = "{{_res_path}}/help/theme/";
 
-    let mainImagePath = "";
+    let mainImagePath = `${resPath}main.png`;
+    let bgImagePath = `${resPath}bg.jpg`;
 
-    let mainImages = fs
-      .readdirSync(`${dirPath}default`)
-      .filter((file) => file.startsWith("main") && file.endsWith(".png"));
-
-    let randomMainImage = lodash.sample(mainImages);
-    if (randomMainImage) {
-      mainImagePath = `${resPath}/default/${randomMainImage}`;
+    if (!fs.existsSync(`${dirPath}main.png`)) {
+      throw new Error("[星点签名]背景图片不存在.");
     }
+
+    if (!fs.existsSync(`${dirPath}bg.jpg`)) {
+      bgImagePath = null;
+    }
+
+    let styleConfig = {};
+    try {
+      styleConfig = (await Data.importModule(`${dirPath}config.js`)).style || {};
+    } catch (e) {
+      logger.warn("[星点签名]配置文件confog.js不存在.");
+    }
+
     return {
       main: mainImagePath,
-      bg: fs.existsSync(`${dirPath}${name}/bg.jpg`)
-        ? `${resPath}${name}/bg.jpg`
-        : `${resPath}default/bg.jpg`,
-      style:
-        (await Data.importModule(`resources/help/theme/${name}/config.js`))
-          .style || {},
+      bg: bgImagePath,
+      style: styleConfig,
     };
   },
   async getThemeData(diyStyle, sysStyle) {
-    let helpConfig = lodash.extend({}, diyStyle, sysStyle);
-    let colCount = Math.min(
-      5,
-      Math.max(parseInt(helpConfig?.colCount) || 3, 2),
-    );
+    let helpConfig = { ...diyStyle, ...sysStyle };
+    let colCount = Math.min(5, Math.max(parseInt(helpConfig?.colCount) || 3, 2));
     let colWidth = Math.min(
       500,
-      Math.max(100, parseInt(helpConfig?.colWidth) || 265),
+      Math.max(100, parseInt(helpConfig?.colWidth) || 265)
     );
     let width = Math.min(2500, Math.max(800, colCount * colWidth + 30));
-    let theme = await Theme.getThemeCfg(
-      helpConfig.theme,
-      diyStyle.themeExclude || sysStyle.themeExclude,
-    );
+    let theme = await Theme.getThemeCfg();
     let themeStyle = theme.style || {};
     let ret = [
       `
@@ -76,7 +48,7 @@ let Theme = {
     `,
     ];
     let css = function (sel, css, key, def, fn) {
-      let val = Data.def(themeStyle[key], diyStyle[key], sysStyle[key], def);
+      let val = diyStyle[key] ?? sysStyle[key] ?? themeStyle[key] ?? def;
       if (fn) {
         val = fn(val);
       }
@@ -87,20 +59,20 @@ let Theme = {
     css(".help-desc", "color", "descColor", "#eee");
     css(".cont-box", "background", "contBgColor", "rgba(43, 52, 61, 0.8)");
     css(".cont-box", "backdrop-filter", "contBgBlur", 3, (n) =>
-      diyStyle.bgBlur === false ? "none" : `blur(${n}px)`,
+      diyStyle.bgBlur === false ? "none" : `blur(${n}px)`
     );
     css(".help-group", "background", "headerBgColor", "rgba(34, 41, 51, .4)");
     css(
       ".help-table .tr:nth-child(odd)",
       "background",
       "rowBgColor1",
-      "rgba(34, 41, 51, .2)",
+      "rgba(34, 41, 51, .2)"
     );
     css(
       ".help-table .tr:nth-child(even)",
       "background",
       "rowBgColor2",
-      "rgba(34, 41, 51, .4)",
+      "rgba(34, 41, 51, .4)"
     );
     return {
       style: `<style>${ret.join("\n")}</style>`,
