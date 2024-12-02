@@ -1,8 +1,8 @@
 import { Version, Config } from '../components/index.js'
 import { SwitchUtils, WatchLog } from '../models/index.js'
-import { plugin } from '../components/Base/index.js'
+import { plugin, redis } from '../components/Base/index.js'
 
-export class SignManager extends plugin {
+export class signSwitch extends plugin {
   constructor () {
     super({
       name: '星点签名:自动切换',
