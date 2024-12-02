@@ -26,11 +26,12 @@ export class sign extends plugin {
       if (!(await SignUtil.checkRedisStatus(redis, redisKey, e))) return false
     }
 
-    const replyMessage = [
+    await e.reply([
       '真是没救了,你个小杂鱼',
-      [segment.face(175)]
-    ]
-    await e.reply(replyMessage, true, { at: true })
+      segment.face(175),
+      true, 
+      { at: true }
+    ])
 
     Data.sleep(500)
     await e.reply('正在获取公共签名API列表信息，请稍候...', true, { recallMsg: 5 })
