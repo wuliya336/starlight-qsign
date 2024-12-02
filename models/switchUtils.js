@@ -1,4 +1,4 @@
-import { YamlReader, Version, Config } from '../components/index.js'
+import { YamlReader, Version } from '../components/index.js'
 import SignUtil from './signUtil.js'
 import Restart from './restart.js'
 
@@ -41,8 +41,7 @@ const SwitchUtils = {
    */
   async getSuccessSignAddr () {
     try {
-      const useRemote = Config.sign.remote
-      const signData = await SignUtil.getSignData(useRemote)
+      const signData = await SignUtil.getSignData(true)
       if (!signData || !signData.providers) {
         return null
       }
