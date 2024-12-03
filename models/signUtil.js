@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 import { Data, Version } from '../components/index.js'
 import fs from 'fs'
@@ -81,7 +80,7 @@ const SignUtil = {
         .filter(([name]) => name !== 'memo')
         .map(([name, info]) => ({
           name,
-          url: `${info.url.endsWith('/') ? info.url.slice(0, -1) : info.url}/sign`,
+          url: info.url.endsWith('/') ? info.url.slice(0, -1) : info.url,
           key: info.key || '❎',
           check: info.check ?? null
         })),
@@ -169,7 +168,10 @@ const SignUtil = {
     try {
       const startTime = Date.now()
 
-      const { success } = await this.fetchRemoteData(item.url, {
+      // 自动判断并追加 /sign
+      const checkUrl = item.url.endsWith('/sign') ? item.url : `${item.url}/sign`
+
+      const { success } = await this.fetchRemoteData(checkUrl, {
         key: item.key || '',
         withParams: true
       })
