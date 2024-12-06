@@ -168,7 +168,6 @@ const SignUtil = {
     try {
       const startTime = Date.now()
 
-      // 自动判断并追加 /sign
       const checkUrl = item.url.endsWith('/sign') ? item.url : `${item.url}/sign`
 
       const { success } = await this.fetchRemoteData(checkUrl, {
