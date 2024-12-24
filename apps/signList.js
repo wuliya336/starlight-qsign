@@ -1,5 +1,5 @@
 import { Config, Render, Data, Version } from '../components/index.js'
-import { SignUtil } from "../models/index.js"
+import { SignUtil } from '../models/index.js'
 import { plugin, redis, Bot, segment, logger } from '../components/Base/index.js'
 
 
