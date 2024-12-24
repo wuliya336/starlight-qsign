@@ -1,6 +1,3 @@
-import fs from 'fs'
-import path from 'path'
-import { pathToFileURL } from 'url'
 import { Version } from '../index.js'
 import logger from './logger.js'
 
@@ -22,13 +19,11 @@ const Restart = await (async () => {
         }
       }
     }
+    case 'yunzai': {
+      return (await import('yunzai')).restart
+    }
     default: {
-      const v3RestartPath = `${Version.path}/plugins/other/restart.js`
-      if (fs.existsSync(v3RestartPath)) {
-        const restartUrl = pathToFileURL(v3RestartPath).href
-        const { Restart } = await import(restartUrl)
-        return Restart
-      }
+      return (await import('../../../other/restart.js')).default
     }
   }
 })()

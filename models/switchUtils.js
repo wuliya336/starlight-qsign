@@ -1,6 +1,7 @@
 import { YamlReader, Version } from '../components/index.js'
 import SignUtil from './signUtil.js'
 import Restart from './restart.js'
+import Protocol from './protocol.js'
 
 const SwitchUtils = {
   /**
@@ -59,8 +60,18 @@ const SwitchUtils = {
         return delayA - delayB
       })
 
-      return validatedItems[0].url
-    } catch {
+      const bestItem = validatedItems[0]
+      const baseUrl = bestItem.url
+      const key = bestItem.key !== '❎' ? bestItem.key : null
+      const ver = await Protocol.version()
+
+      const params = new URLSearchParams()
+      if (key) params.append('key', key)
+      if (ver && ver !== '未知') params.append('ver', ver)
+
+      return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl
+    } catch (error) {
+      console.error('获取签名地址失败:', error)
       return null
     }
   }

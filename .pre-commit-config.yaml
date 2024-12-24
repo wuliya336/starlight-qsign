@@ -9,3 +9,5 @@ repos:
           - eslint@^9.16.0
           - globals@^15.12.10
           - neostandard@^0.11.9
+ci:
+  autofix: true

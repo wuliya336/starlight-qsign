@@ -1,4 +1,4 @@
- 
+
 import { Config, Version } from './components/index.js'
 
 // 兼容锅巴

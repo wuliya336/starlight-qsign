@@ -29,8 +29,8 @@ export class sign extends plugin {
     await e.reply([
       '真是没救了,你个小杂鱼',
       segment.face(175)],
-      true, 
-      { at: true }
+    true,
+    { at: true }
     )
 
     Data.sleep(500)

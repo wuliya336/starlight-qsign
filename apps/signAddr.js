@@ -1,4 +1,4 @@
-import { getSignInfo } from '../models/index.js'
+import { Protocol } from '../models/index.js'
 import { Render, Version } from '../components/index.js'
 import { plugin } from '../components/Base/index.js'
 
@@ -26,14 +26,19 @@ export class addr extends plugin {
       return true
     }
 
-    const { platformInfo, signApiAddr } = await getSignInfo(e)
+
+    const name = await Protocol.name(e) || '未知'
+
+    let signAddr
+    if (name === 'ICQQ') {
+      signAddr = await Protocol.signAddr(e) || '未知'
+    } else {
+      signAddr = '未配置签名地址或不支持此适配器'
+    }
 
     const img = await Render.render(
       'sign/addr',
-      {
-        signApiAddr,
-        platformInfo
-      },
+      { name, signAddr },
       { e, scale: 1.4 }
     )
     await e.reply(img)

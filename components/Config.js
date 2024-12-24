@@ -1,4 +1,4 @@
- 
+
 import YAML from 'yaml'
 import chokidar from 'chokidar'
 import fs from 'node:fs'
@@ -6,6 +6,7 @@ import YamlReader from './YamlReader.js'
 import _ from 'lodash'
 import Version from './Version.js'
 import { cfgSchema } from '../config/system/cfg_system.js'
+import cfg from '../../../lib/config/config.js'
 
 class Config {
   constructor () {
@@ -43,6 +44,9 @@ class Config {
     return this.getDefOrConfig('other')
   }
 
+  get uin (){
+    return cfg.qq
+  }
   /** 默认配置和用户配置 */
   getDefOrConfig (name) {
     let def = this.getdefSet(name)
@@ -131,7 +135,7 @@ class Config {
             ) {
               target.type = 'open'
             }
-             
+
             await modifyWebSocket(target)
           }
         }

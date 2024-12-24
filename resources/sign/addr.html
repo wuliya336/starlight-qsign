@@ -1,7 +1,9 @@
-{{extend defaultLayout}} {{block 'css'}}
+{{extend defaultLayout}} 
+{{block 'css'}}
 <link rel="stylesheet" type="text/css" href="{{_res_path}}/sign/addr.css" />
-{{/block}} {{block 'main'}}
+{{/block}} 
 
+{{block 'main'}}
 <div class="main-container">
   <div class="background-block"></div>
 
@@ -10,15 +12,14 @@
 
     <div class="info_box">
       <div class="info_item">
-        <div class="info_label">当前协议类型：</div>
-        <div class="info_content">{{platformInfo}}</div>
+        <div class="info_label">当前适配器类型：</div>
+        <div class="info_content">{{name}}</div>
       </div>
       <div class="info_item">
         <div class="info_label">当前签名地址：</div>
-        <div class="info_content">{{signApiAddr}}</div>
+        <div class="info_content">{{signAddr}}</div>
       </div>
     </div>
   </div>
 </div>
-
 {{/block}}
