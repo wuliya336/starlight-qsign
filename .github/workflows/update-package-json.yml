@@ -1,47 +1,65 @@
-name: 自动更新版本
+name: 同步并更新版本
 
 on:
-  workflow_dispatch:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
-  bump-version:
+  sync-and-bump-version:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
 
     steps:
-      # 检出代码
       - name: 检出代码
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 
 
-      # 自动更新版本号
+      - name: 同步最新 main 分支
+        run: |
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          git pull origin main
+
       - name: 自动更新版本号
         id: bump_version
-        uses: phips28/gh-action-bump-version@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          version-type: minor
-          tag-prefix: "v"
-          commit-message: "版本更新至 {{version}} 🎉"
+        run: |
+          current_version=$(grep -oP '"version":\s*"\K[0-9]+\.[0-9]+\.[0-9]+' package.json)
+          IFS='.' read -r major minor patch <<< "$current_version"
+          minor=$((minor + 1))
+          patch=0
+          new_version="$major.$minor.$patch"
+          sed -i "s/\"version\": \"$current_version\"/\"version\": \"$new_version\"/" package.json
+          echo "new_version=$new_version" >> $GITHUB_ENV
 
-      # 创建并推送新分支
       - name: 创建并推送新分支
         run: |
-          git checkout -b version/v${{ steps.bump_version.outputs.new_version }}
-          git push origin version/v${{ steps.bump_version.outputs.new_version }}
+          # 设置 Git 用户信息
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 创建 Pull Request
+          # 创建新的分支
+          branch_name="version/v${{ env.new_version }}"
+          git checkout -b "$branch_name"
+
+          # 提交更改
+          git add package.json
+          git commit -m "版本更新至 ${{ env.new_version }} 🎉"
+
+          # 推送到远程仓库
+          git push -f origin "$branch_name"
+
       - name: 创建 Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: version/v${{ steps.bump_version.outputs.new_version }} # 动态分支名
-          title: "版本更新至 v${{ steps.bump_version.outputs.new_version }}"
+          branch: "version/v${{ env.new_version }}" # 源分支
+          base: main                             # 目标分支
+          title: "版本更新至 ${{ env.new_version }}"
           body: |
-            此 PR 自动更新了版本至 `v${{ steps.bump_version.outputs.new_version }}` 🎉
-          base: main
+            自动更新版本号至 `${{ env.new_version }}` 🎉。
+            请审核并确认此变更。

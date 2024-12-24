@@ -1,6 +1,6 @@
 {
   "name": "starlight-qsign",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "author": "wuliya",
   "type": "module",
   "dependencies": {
@@ -18,14 +18,14 @@
     "lint:fix": "eslint . --fix"
   },
   "lint-staged": {
-  "app/**/*.js": [
-    "eslint --fix"
-  ],
-  "components/**/*.js": [
-    "eslint --fix"
-  ],
-  "models/**/*.js": [
-    "eslint --fix"
-  ]
-}
+    "app/**/*.js": [
+      "eslint --fix"
+    ],
+    "components/**/*.js": [
+      "eslint --fix"
+    ],
+    "models/**/*.js": [
+      "eslint --fix"
+    ]
+  }
 }
