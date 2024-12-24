@@ -10,4 +10,11 @@ repos:
           - globals@^15.12.10
           - neostandard@^0.11.9
 ci:
-  autofix: true
+    autofix_commit_msg: |
+        [pre-commit.ci] auto fixes from pre-commit.com hooks
+    autofix_prs: true
+    autoupdate_branch: ''
+    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
