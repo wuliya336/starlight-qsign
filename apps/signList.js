@@ -1,15 +1,6 @@
 import { Config, Render, Data, Version } from '../components/index.js'
 import { SignUtil } from '../models/index.js'
-import { plugin, redis, Bot, segment, logger } from '../components/Base/index.js'
-
-
-
-
-
-
-
-
-
+import { plugin, redis, Bot, segment, logger } from "../components/Base/index.js"
 
 export class sign extends plugin {
   constructor () {
@@ -22,12 +13,6 @@ export class sign extends plugin {
           reg: /^(#)?(公共(api)?(签名)?(api)?|api(列表|签名)|45)$/i,
           fnc: 'list'
         }
-
-
-
-
-
-
       ]
     })
   }
