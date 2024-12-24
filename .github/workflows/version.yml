@@ -3,7 +3,7 @@ name: 项目版本更新
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   update-version:
@@ -16,7 +16,7 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
 
       - name: 更新版本号
         id: bump_version
@@ -30,7 +30,7 @@ jobs:
           echo "new_version=$new_version" >> $GITHUB_ENV
           echo "branch_name=version/v$new_version" >> $GITHUB_ENV
 
-      - name: 提交并推送
+      - name: 提交并推送更改
         id: commit_and_push
         run: |
           git config user.name "github-actions[bot]"
@@ -42,7 +42,7 @@ jobs:
           git push origin -f "${{ env.branch_name }}"
           git push origin -f "v${{ env.new_version }}"
 
-      - name: 检查是否已有 PR
+      - name: 检查是否已有 Pull Request
         id: check_pr
         run: |
           existing_pr=$(curl -s \
@@ -50,11 +50,11 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/${{ github.repository }}/pulls?head=${{ github.repository_owner }}:${{ env.branch_name }}&state=open")
 
-          if [[ "$existing_pr" != "[]" ]]; then
-            echo "Pull Request 已存在，跳过创建。"
+          if [[ "$existing_pr" == "[]" ]]; then
+            echo "Pull Request 不存在，跳过创建。"
             echo "pr_exists=true" >> $GITHUB_ENV
           else
-            echo "Pull Request 不存在，可以创建。"
+            echo "Pull Request 已存在，可以创建。"
             echo "pr_exists=false" >> $GITHUB_ENV
           fi
 
@@ -66,12 +66,16 @@ jobs:
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/pulls \
-            -d '{
-              "title": "版本更新至 '${{ env.new_version }} 🎉'",
-              "head": "'${{ env.branch_name }}'",
-              "base": "main",
-              "body": "项目版本更新\n此PR是自动更新内容。\n请审核并合并。"
-            }')
+            -d "$(cat << EOF
+          {
+            "title": "版本更新至 ${new_version} 🎉",
+            "head": "${branch_name}",
+            "base": "main",
+            "body": "项目版本更新\n此PR是自动更新内容。\n请审核并合并。"
+          }
+          EOF
+          )")
+
           if [ "$status_code" -eq 201 ]; then
             echo "Pull Request 创建成功！"
           else
