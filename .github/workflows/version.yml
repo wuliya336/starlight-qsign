@@ -29,7 +29,7 @@ jobs:
           VERSION_TYPE: ${{ vars.VERSION_TYPE }}
         run: |
           version_type=${VERSION_TYPE:-patch}
-          # path: 小版本号，minor: 中版本号，major: 大版本号
+          # patch: 小版本号，minor: 中版本号，major: 大版本号
           new_version=$(pnpm version $version_type --no-git-tag-version | sed 's/v//')
           echo "new_version=$new_version" >> $GITHUB_ENV
           echo "branch_name=version/v$new_version" >> $GITHUB_ENV
@@ -52,10 +52,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           existing_pr=$(gh pr list --state open --head "${{ env.branch_name }}" --base main --json number)
-          echo "PR 查询结果: $existing_pr"
           if [ "$(echo "$existing_pr" | jq -r '. | length')" -gt 0 ]; then
           echo "pr_number=$(echo "$existing_pr" | jq -r '.[0].number')" >> $GITHUB_ENV
-          echo "找到现有的 PR: $(echo "$existing_pr" | jq -r '.[0].number')"
           else
           echo "没有找到与分支相关的打开的 PR。"
           fi
