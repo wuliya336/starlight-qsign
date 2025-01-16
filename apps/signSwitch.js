@@ -16,7 +16,7 @@ export class signSwitch extends plugin {
       ]
     })
 
-    this.keywords = ['签名api异常', '可能被风控']
+    this.keywords = ['签名api异常']
     this.redisKey = 'Yz:starlight-qsign:lock'
     this.logPath = `${Version.Path}/logs/error.log`
     this.lastLog = null
