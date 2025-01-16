@@ -1,6 +1,5 @@
 import { YamlReader, Version } from '../components/index.js'
 import SignUtil from './signUtil.js'
-import Restart from './restart.js'
 import Protocol from './protocol.js'
 
 const SwitchUtils = {
@@ -16,7 +15,6 @@ const SwitchUtils = {
         botConfig.sign_api_addr = newAddr
         yamlReader.set('bot', botConfig)
         await yamlReader.save()
-        await Restart.restart()
       }
     } catch {}
   },
@@ -32,7 +30,6 @@ const SwitchUtils = {
       if (yamlReader.has(keyPath)) {
         yamlReader.set(keyPath, newAddr)
         await yamlReader.save()
-        await Restart.restart()
       }
     } catch {}
   },
@@ -40,7 +37,7 @@ const SwitchUtils = {
   /**
    * 获取延迟最低的状态正常签名地址
    */
-  async getSuccessSignAddr () {
+  async getSignAddr () {
     try {
       const signData = await SignUtil.getSignData(true)
       if (!signData || !signData.providers) {

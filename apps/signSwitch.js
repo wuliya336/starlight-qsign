@@ -1,5 +1,5 @@
 import { Version, Config } from '../components/index.js'
-import { SwitchUtils, WatchLog } from '../models/index.js'
+import { SwitchUtils, WatchLog, Protocol } from '../models/index.js'
 import { plugin, redis } from '../components/Base/index.js'
 
 export class signSwitch extends plugin {
@@ -41,29 +41,31 @@ export class signSwitch extends plugin {
     this.switchAndRestart()
   }
 
-  async switchSign () {
+  async switchSign (e) {
     try {
-      await this.switchAndRestart()
+      await this.switchAndRestart(e)
     } catch (error) {}
   }
 
-  async switchAndRestart () {
+  async switchAndRestart (e) {
     const locked = await redis.get(this.redisKey)
     if (locked) return
-
+    const uin = Protocol.getBotUin(e)
     try {
       await redis.set(this.redisKey, 1)
       await redis.expire(this.redisKey, 3600)
 
-      const newAddr = await SwitchUtils.getSuccessSignAddr()
+      const newAddr = await SwitchUtils.getSignAddr()
       if (!newAddr) return
 
       if (Version.name === 'TRSS-Yunzai') {
         logger.warn(`${Version.name} 切换签名地址: ${newAddr}`)
         await SwitchUtils.isTrss(newAddr)
+        Bot[uin].sig.sign_api_addr = newAddr
       } else if (Version.name === 'Miao-Yunzai') {
         logger.warn(`${Version.name} 切换签名地址: ${newAddr}`)
         await SwitchUtils.isMiao(newAddr)
+        Bot[uin].sig.sign_api_addr = newAddr
       } else if (Version.name === 'Karin') {
         logger.warn(`暂不支持${Version.name}`)
       } else {
