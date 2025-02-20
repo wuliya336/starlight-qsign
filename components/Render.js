@@ -1,7 +1,7 @@
 import { join } from 'path'
 
 import puppeteer from './Base/puppeteer.js'
-import Config from './Config.js'
+import { Config } from './Config.js'
 import Version from './Version.js'
 
 function scale (pct = 1) {

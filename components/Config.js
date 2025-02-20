@@ -5,9 +5,9 @@ import chokidar from 'chokidar'
 import _ from 'lodash'
 
 import cfg from '../../../lib/config/config.js'
-import cfgSchema from '../config/system/cfg_system.js'
-import { Version } from './Version.js'
-import { YamlReader } from './YamlReader.js'
+import { cfgSchema } from '../config/system/cfg_system.js'
+import Version from './Version.js'
+import YamlReader from './YamlReader.js'
 
 class Cfg {
   constructor () {

@@ -1,5 +1,5 @@
 
-import Config from './Config.js'
+import { Config } from './Config.js'
 import Data from './Data.js'
 import Init from './Init.js'
 import Render from './Render.js'
