@@ -73,7 +73,6 @@ export class help extends plugin {
         helpCfg: helpConfig,
         helpGroup,
         ...themeData,
-        element: 'default'
       },
       { e, scale: 1.2 }
     )
@@ -87,7 +86,6 @@ export class help extends plugin {
       {
         currentVersion: Version.ver,
         changelogs: Version.logs,
-        elem: 'elem'
       },
       { e, scale: 1.2 }
     )

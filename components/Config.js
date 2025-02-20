@@ -1,61 +1,46 @@
-
-import YAML from 'yaml'
-import chokidar from 'chokidar'
 import fs from 'node:fs'
-import YamlReader from './YamlReader.js'
-import _ from 'lodash'
-import Version from './Version.js'
-import { cfgSchema } from '../config/system/cfg_system.js'
-import cfg from '../../../lib/config/config.js'
+import path from 'node:path'
 
-class Config {
+import chokidar from 'chokidar'
+import _ from 'lodash'
+
+import cfg from '../../../lib/config/config.js'
+import cfgSchema from '../config/system/cfg_system.js'
+import { Version } from './Version.js'
+import { YamlReader } from './YamlReader.js'
+
+class Cfg {
   constructor () {
     this.config = {}
-    this.oldConfig = {}
-    /** 监听文件 */
-    this.watcher = { config: {}, defSet: {} }
+    this.watcher = {}
+
+    this.dirCfgPath = `${Version.Plugin_Path}/config/config/`
+    this.defCfgPath = `${Version.Plugin_Path}/config/defSet/`
 
     this.initCfg()
   }
 
   /** 初始化配置 */
   initCfg () {
-    let path = `${Version.Plugin_Path}/config/config/`
-    if (!fs.existsSync(path)) fs.mkdirSync(path)
-    let pathDef = `${Version.Plugin_Path}/config/defSet/`
-    const files = fs
-      .readdirSync(pathDef)
+    if (!fs.existsSync(this.dirCfgPath)) fs.mkdirSync(this.dirCfgPath, { recursive: true })
+
+    fs.readdirSync(this.defCfgPath)
       .filter((file) => file.endsWith('.yaml'))
-    for (let file of files) {
-      if (!fs.existsSync(`${path}${file}`)) {
-        fs.copyFileSync(`${pathDef}${file}`, `${path}${file}`)
-      }
-      this.watch(`${path}${file}`, file.replace('.yaml', ''), 'config')
-    }
+      .forEach((file) => {
+        const name = path.basename(file, '.yaml')
+        const userCfgPath = path.join(this.dirCfgPath, file)
+        if (!fs.existsSync(userCfgPath)) fs.copyFileSync(path.join(this.defCfgPath, file), userCfgPath)
+        this.watch(userCfgPath, name, 'config')
+      })
   }
 
-  /** 签名设置 */
-  get sign () {
-    return this.getDefOrConfig('sign')
-  }
-
-  /** 其他设置 */
-  get other () {
-    return this.getDefOrConfig('other')
-  }
-
-  get uin (){
-    return cfg.qq
-  }
-  /** 默认配置和用户配置 */
+  /** 读取默认或用户配置 */
   getDefOrConfig (name) {
-    let def = this.getdefSet(name)
-    let config = this.getConfig(name)
-    return { ...def, ...config }
+    return { ...this.getDefSet(name), ...this.getConfig(name) }
   }
 
   /** 默认配置 */
-  getdefSet (name) {
+  getDefSet (name) {
     return this.getYaml('defSet', name)
   }
 
@@ -64,179 +49,99 @@ class Config {
     return this.getYaml('config', name)
   }
 
-  /**
-   * 获取配置yaml
-   * @param type 默认跑配置-defSet，用户配置-config
-   * @param name 名称
-   */
+  /** 获取 YAML 配置 */
   getYaml (type, name) {
-    let file = `${Version.Plugin_Path}/config/${type}/${name}.yaml`
+    let filePath = path.join(Version.Plugin_Path, 'config', type, `${name}.yaml`)
     let key = `${type}.${name}`
 
     if (this.config[key]) return this.config[key]
 
-    this.config[key] = YAML.parse(fs.readFileSync(file, 'utf8'))
-
-    this.watch(file, name, type)
+    this.config[key] = new YamlReader(filePath).jsonData
+    this.watch(filePath, name, type)
 
     return this.config[key]
   }
 
   /** 监听配置文件 */
-  watch (file, name, type = 'defSet') {
+  watch (file, name, type = 'config') {
     let key = `${type}.${name}`
-    if (!this.oldConfig[key]) {
-      this.oldConfig[key] = _.cloneDeep(this.config[key])
-    }
     if (this.watcher[key]) return
 
-    const watcher = chokidar.watch(file)
-    watcher.on('change', async (path) => {
-      delete this.config[key]
-      if (typeof Bot == 'undefined') return
-      logger.mark(`[星点签名][修改配置文件][${type}][${name}]`)
-
-      if (name == 'config') {
-        const oldConfig = this.oldConfig[key]
-        delete this.oldConfig[key]
-        const newConfig = this.getYaml(type, name)
-        const object = this.findDifference(oldConfig, newConfig)
-        // console.log(object);
-        for (const key in object) {
-          if (Object.hasOwnProperty.call(object, key)) {
-            const value = object[key]
-            const arr = key.split('.')
-            if (arr[0] !== 'servers') continue
-            let data = newConfig.servers[arr[1]]
-            if (typeof data === 'undefined') data = oldConfig.servers[arr[1]]
-            const target = {
-              type: null,
-              data
-            }
-            if (
-              typeof value.newValue === 'object' &&
-              typeof value.oldValue === 'undefined'
-            ) {
-              target.type = 'add'
-            } else if (
-              typeof value.newValue === 'undefined' &&
-              typeof value.oldValue === 'object'
-            ) {
-              target.type = 'del'
-            } else if (
-              value.newValue === true &&
-              (value.oldValue === false ||
-                typeof value.oldValue === 'undefined')
-            ) {
-              target.type = 'close'
-            } else if (
-              value.newValue === false &&
-              (value.oldValue === true || typeof value.oldValue === 'undefined')
-            ) {
-              target.type = 'open'
-            }
-
-            await modifyWebSocket(target)
-          }
-        }
-      }
-    })
-
+    const watcher = chokidar.watch(file, { persistent: true })
     this.watcher[key] = watcher
+
+    watcher.on('change', _.debounce(async () => {
+      const oldConfig = _.cloneDeep(this.config[key] || {})
+
+      delete this.config[key]
+      this.config[key] = new YamlReader(file).jsonData
+
+      logger.mark(`[清语表情][修改配置文件][${type}][${name}]`)
+
+      const changes = this.findDifference(oldConfig, this.config[key])
+      for (const key in changes) {
+        const value = changes[key]
+
+        let data = this.config[key].servers?.[key.split('.')[1]] || oldConfig.servers?.[key.split('.')[1]]
+        let target = { type: null, data }
+
+        if (_.isObject(value.newValue) && value.oldValue === undefined) target.type = 'add'
+        else if (value.newValue === undefined && _.isObject(value.oldValue)) target.type = 'del'
+        else if (value.newValue === true && !value.oldValue) target.type = 'close'
+        else if (value.newValue === false && value.oldValue) target.type = 'open'
+
+        await modifyWebSocket(target)
+      }
+    }))
   }
 
-  getCfgSchemaMap () {
-    let ret = {}
-    _.forEach(cfgSchema, (cfgGroup) => {
-      _.forEach(cfgGroup.cfg, (cfgItem, cfgKey) => {
-        ret[cfgItem.key] = cfgItem
-        cfgItem.cfgKey = cfgKey
-      })
-    })
-    return ret
-  }
-
-  getCfgSchema () {
-    return cfgSchema
-  }
-
+  /** 获取所有配置 */
   getCfg () {
-    let other = this.getDefOrConfig('other')
-    let sign = this.getDefOrConfig('sign')
-    return {
-      ...other,
-      ...sign
-    }
+    return fs.readdirSync(this.defCfgPath)
+      .filter((file) => file.endsWith('.yaml'))
+      .reduce((configData, file) => {
+        const name = path.basename(file, '.yaml')
+        configData[name] = this.getDefOrConfig(name)
+        return configData
+      }, {})
   }
 
-  /**
-   * @description: 修改设置
-   * @param {String} name 文件名
-   * @param {String} key 修改的key值
-   * @param {String|Number} value 修改的value值
-   * @param {'config'|'defSet'} type 配置文件或默认
-   */
+  /** 获取配置 Schema 映射 */
+  getCfgSchemaMap () {
+    return _.cloneDeep(cfgSchema)
+  }
+
+  /** 修改配置 */
   modify (name, key, value, type = 'config') {
-    let path = `${Version.Plugin_Path}/config/${type}/${name}.yaml`
-    new YamlReader(path).set(key, value)
-    this.oldConfig[key] = _.cloneDeep(this.config[key])
+    let filePath = path.join(Version.Plugin_Path, 'config', type, `${name}.yaml`)
+    new YamlReader(filePath).set(key, value)
     delete this.config[`${type}.${name}`]
   }
 
-  /**
-   * @description: 修改配置数组
-   * @param {String} name 文件名
-   * @param {String|Number} key key值
-   * @param {String|Number} value value
-   * @param {'add'|'del'} category 类别 add or del
-   * @param {'config'|'defSet'} type 配置文件或默认
-   */
-  modifyarr (name, key, value, category = 'add', type = 'config') {
-    let path = `${Version.Plugin_Path}/config/${type}/${name}.yaml`
-    let yaml = new YamlReader(path)
-    if (category == 'add') {
-      yaml.addIn(key, value)
-    } else {
-      let index = yaml.jsonData[key].indexOf(value)
-      yaml.delete(`${key}.${index}`)
-    }
-  }
-
-  setArr (name, key, item, value, type = 'config') {
-    let path = `${Version.Plugin_Path}/config/${type}/${name}.yaml`
-    let yaml = new YamlReader(path)
-    let arr = yaml.get(key).slice()
-    arr[item] = value
-    yaml.set(key, arr)
-  }
-
-  /**
-   * @description 对比两个对象不同的值
-   * @param {*} oldObj
-   * @param {*} newObj
-   * @param {*} parentKey
-   * @returns
-   */
-  findDifference (obj1, obj2, parentKey = '') {
-    const result = {}
-    for (const key in obj1) {
-      const fullKey = parentKey ? `${parentKey}.${key}` : key
-      if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
-        const diff = this.findDifference(obj1[key], obj2[key], fullKey)
-        if (!_.isEmpty(diff)) {
-          Object.assign(result, diff)
-        }
-      } else if (!_.isEqual(obj1[key], obj2[key])) {
-        result[fullKey] = { oldValue: obj1[key], newValue: obj2[key] }
-      }
-    }
-    for (const key in obj2) {
-      if (!Object.prototype.hasOwnProperty.call(obj1, key)) {
-        const fullKey = parentKey ? `${parentKey}.${key}` : key
-        result[fullKey] = { oldValue: undefined, newValue: obj2[key] }
-      }
-    }
-    return result
+  /** 对比两个对象的不同值 */
+  findDifference (obj1, obj2) {
+    return _.reduce(
+      obj1,
+      (result, value, key) => {
+        if (!_.isEqual(value, obj2[key])) result[key] = { oldValue: value, newValue: obj2[key] }
+        return result
+      },
+      _.reduce(
+        obj2,
+        (result, value, key) => {
+          if (!(key in obj1)) result[key] = { oldValue: undefined, newValue: value }
+          return result
+        },
+        {}
+      )
+    )
   }
 }
-export default new Config()
+
+export const Config = new Proxy(new Cfg(), {
+  get (target, prop) {
+    if (prop === 'masterQQ') return cfg.masterQQ
+    if (prop in target) return target[prop]
+    return target.getDefOrConfig(prop)
+  }
+})

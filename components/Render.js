@@ -27,7 +27,6 @@ const Render = {
       _res_path: (join(Version.Plugin_Path, '/resources')).replace(/\\/g, '/'),
       _layout_path: (join(Version.Plugin_Path, '/resources', 'common', 'layout') + '/').replace(/\\/g, '/'),
       defaultLayout: (join(Version.Plugin_Path, '/resources', 'common', 'layout') + '/default.html').replace(/\\/g, '/'),
-      elemLayout: (join(Version.Plugin_Path, '/resources', 'common', 'layout') + '/elem.html').replace(/\\/g, '/'),
       sys: {
         scale: scale(params?.scale || 1)
       },
