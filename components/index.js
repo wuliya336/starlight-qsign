@@ -1,16 +1,15 @@
 
-import Version from './Version.js'
-import Data from './Data.js'
-import Render from './Render.js'
-import YamlReader from './YamlReader.js'
 import Config from './Config.js'
+import Data from './Data.js'
 import Init from './Init.js'
+import Render from './Render.js'
+import Version from './Version.js'
+import YamlReader from './YamlReader.js'
 
 export {
-  Render,
-  Data,
-  Version,
-  YamlReader,
   Config,
-  Init
-}
+  Data,
+  Init,
+  Render,
+  Version,
+  YamlReader }

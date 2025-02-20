@@ -1,6 +1,6 @@
-import { Config, Render, Data, Version } from '../components/index.js'
+import { Bot, logger, plugin, redis, segment } from '../components/Base/index.js'
+import { Config, Data, Render, Version } from '../components/index.js'
 import { SignUtil } from '../models/index.js'
-import { plugin, redis, Bot, segment, logger } from '../components/Base/index.js'
 
 export class sign extends plugin {
   constructor () {
@@ -28,7 +28,7 @@ export class sign extends plugin {
 
     await e.reply([
       '真是没救了,你个小杂鱼',
-      segment.face(175)],
+      segment.face(175) ],
     true,
     { at: true }
     )
@@ -81,7 +81,7 @@ export class sign extends plugin {
           }
         }
         SignUtil.addMessage(outputs, `数据更新于: ${updateTime}`, e.self_id)
-        const allMessages = [...initMsg, ...outputs]
+        const allMessages = [ ...initMsg, ...outputs ]
         await this.reply(await Bot.makeForwardMsg(allMessages))
       }
 

@@ -1,8 +1,8 @@
 
-import lodash from 'lodash'
 import fs from 'fs'
+import lodash from 'lodash'
+import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import { join, dirname } from 'path'
 
 const __filename = fileURLToPath(import.meta.url)
 
@@ -213,7 +213,7 @@ let Data = {
       arr = arr.replace(/\s*(;|；|、|，)\s*/, ',')
       arr = arr.split(',')
     } else if (lodash.isNumber(arr)) {
-      arr = [arr.toString()]
+      arr = [ arr.toString() ]
     }
     lodash.forEach(arr, (str, idx) => {
       if (!lodash.isUndefined(str)) {

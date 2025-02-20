@@ -1,9 +1,10 @@
 
 import fs from 'fs'
 import _ from 'lodash'
-import Data from './Data.js'
+import { basename, dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import { join, dirname, basename } from 'path'
+
+import Data from './Data.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

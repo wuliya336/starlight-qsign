@@ -1,6 +1,7 @@
 import lodash from 'lodash'
+
 import { plugin } from '../components/Base/index.js'
-import { Render, Data, Version } from '../components/index.js'
+import { Data, Render, Version } from '../components/index.js'
 import Theme from '../config/system/theme_system.js'
 
 export class help extends plugin {
@@ -72,7 +73,7 @@ export class help extends plugin {
       {
         helpCfg: helpConfig,
         helpGroup,
-        ...themeData,
+        ...themeData
       },
       { e, scale: 1.2 }
     )
@@ -85,7 +86,7 @@ export class help extends plugin {
       'help/version-info',
       {
         currentVersion: Version.ver,
-        changelogs: Version.logs,
+        changelogs: Version.logs
       },
       { e, scale: 1.2 }
     )

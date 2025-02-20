@@ -1,6 +1,7 @@
-import { Config, Render } from '../components/index.js'
-import { plugin, redis } from '../components/Base/index.js'
 import lodash from 'lodash'
+
+import { plugin, redis } from '../components/Base/index.js'
+import { Config, Render } from '../components/index.js'
 
 let keys = lodash.map(Config.getCfgSchemaMap(), (i) => i.key)
 let sysCfgReg = new RegExp(`^#星点签名设置\\s*(${keys.join('|')})?\\s*(.*)$`)

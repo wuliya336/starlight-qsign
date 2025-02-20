@@ -1,7 +1,7 @@
-import fs from 'fs'
-import YAML from 'yaml'
-import _ from 'lodash'
 import chokidar from 'chokidar'
+import fs from 'fs'
+import _ from 'lodash'
+import YAML from 'yaml'
 
 export default class YamlReader {
   /**
@@ -50,7 +50,7 @@ export default class YamlReader {
 
   /* 修改某个key的值 */
   set (keyPath, value) {
-    this.document.setIn([keyPath], value)
+    this.document.setIn([ keyPath ], value)
     this.save()
   }
 

@@ -4,7 +4,7 @@ export const helpCfg = {
   columnCount: 3,
   colWidth: 265,
   theme: 'all',
-  themeExclude: ['default'],
+  themeExclude: [ 'default' ],
   style: {
     fontColor: '#d3bc8e',
     descColor: '#eee',

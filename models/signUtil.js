@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { Data, Version } from '../components/index.js'
 import fs from 'fs'
 import path from 'path'
+
 import { logger } from '../components/Base/index.js'
+import { Data, Version } from '../components/index.js'
 
 const SignUtil = {
   /**
@@ -74,11 +75,11 @@ const SignUtil = {
    * 解析签名数据
    */
   processProviderData (data) {
-    return Object.entries(data).map(([provider, items]) => ({
+    return Object.entries(data).map(([ provider, items ]) => ({
       provider,
       items: Object.entries(items || {})
-        .filter(([name]) => name !== 'memo')
-        .map(([name, info]) => ({
+        .filter(([ name ]) => name !== 'memo')
+        .map(([ name, info ]) => ({
           name,
           url: info.url.endsWith('/') ? info.url.slice(0, -1) : info.url,
           key: info.key || '❎',

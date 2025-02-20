@@ -1,6 +1,7 @@
-import { Version, Init } from './components/index.js'
-import { logger } from './components/Base/index.js'
 import chalk from 'chalk'
+
+import { logger } from './components/Base/index.js'
+import { Init, Version } from './components/index.js'
 
 let apps
 let startTime = Date.now()

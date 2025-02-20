@@ -1,7 +1,8 @@
-import fs from 'fs'
-import Version from './Version.js'
-import logger from './Base/logger.js'
 import chalk from 'chalk'
+import fs from 'fs'
+
+import logger from './Base/logger.js'
+import Version from './Version.js'
 
 export default async () => {
   const files = fs

@@ -1,15 +1,14 @@
 import Bot from './bot.js'
-import redis from './redis.js'
 import logger from './logger.js'
 import plugin from './plugin.js'
-import segment from './segment.js'
 import puppeteer from './puppeteer.js'
+import redis from './redis.js'
+import segment from './segment.js'
 
 export {
   Bot,
-  redis,
   logger,
   plugin,
-  segment,
-  puppeteer
-}
+  puppeteer,
+  redis,
+  segment }

@@ -1,7 +1,8 @@
 import { join } from 'path'
-import Version from './Version.js'
-import Config from './Config.js'
+
 import puppeteer from './Base/puppeteer.js'
+import Config from './Config.js'
+import Version from './Version.js'
 
 function scale (pct = 1) {
   const renderScale = Config.other.renderScale || 100
